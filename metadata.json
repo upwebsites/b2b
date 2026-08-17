@@ -1,0 +1,6 @@
+{
+  "name": "B2B Group",
+  "description": "Forniture IT, arredi da ufficio e impieghi per la ristorazione. Partner unico per aziende di ogni dimensione.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

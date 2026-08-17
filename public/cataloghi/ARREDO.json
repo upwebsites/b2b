@@ -1,0 +1,370 @@
+{
+  "_editorMeta": {
+    "createdAt": "2026-07-28T10:49:06.159Z",
+    "versionNumber": "1.0.0",
+    "versionDescription": "Versione aggiornata al 27/07/2026",
+    "referenceDate": "27/07/2026"
+  },
+  "data": [
+    {
+      "Prodotto": "Composizione Rhea Interior One",
+      "Descrizione": "",
+      "Prezzo": "2570.00",
+      "Immagine": "composizione_rhea_interior_one"
+    },
+    {
+      "Prodotto": "Composizione Stratos Plus Design One",
+      "Descrizione": "",
+      "Prezzo": "4900.00",
+      "Immagine": "composizione_stratos_plus_design_one"
+    },
+    {
+      "Prodotto": "Composizione Stratos Plus Design Two",
+      "Descrizione": "",
+      "Prezzo": "1490.00",
+      "Immagine": "composizione_stratos_plus_design_two"
+    },
+    {
+      "Prodotto": "Composizione Forma Luxury",
+      "Descrizione": "",
+      "Prezzo": "3546.00",
+      "Immagine": "composizione_forma_luxury"
+    },
+    {
+      "Prodotto": "Composizione forma Winery",
+      "Descrizione": "",
+      "Prezzo": "2389.00",
+      "Immagine": "composizione_forma_winery"
+    },
+    {
+      "Prodotto": "Composizione forma Citylife",
+      "Descrizione": "",
+      "Prezzo": "2789.00",
+      "Immagine": "composizione_forma_citylife"
+    },
+    {
+      "Prodotto": "Composizione Rhea Interior Three",
+      "Descrizione": "",
+      "Prezzo": "958.00",
+      "Immagine": "composizione_rhea_interior_three"
+    },
+    {
+      "Prodotto": "Composizione Rhea Interior Two",
+      "Descrizione": "",
+      "Prezzo": "1275.00",
+      "Immagine": "composizione_rhea_interior_two"
+    },
+    {
+      "Prodotto": "Composizione Stratos Plus Design Three",
+      "Descrizione": "",
+      "Prezzo": "4534.00",
+      "Immagine": "composizione_stratos_plus_design_three"
+    },
+    {
+      "Prodotto": "Composizione Cubo Professional two",
+      "Descrizione": "",
+      "Prezzo": "2068.00",
+      "Immagine": "composizione_cubo_professional_two"
+    },
+    {
+      "Prodotto": "Composizione Rhea Architecture",
+      "Descrizione": "",
+      "Prezzo": "1874.00",
+      "Immagine": "composizione_rhea_architecture"
+    },
+    {
+      "Prodotto": "Composizione Forma Elegant",
+      "Descrizione": "",
+      "Prezzo": "1612.00",
+      "Immagine": "composizione_forma_elegant"
+    },
+    {
+      "Prodotto": "Composizione Piano Elements",
+      "Descrizione": "",
+      "Prezzo": "2543.00",
+      "Immagine": "composizione_piano_elements"
+    },
+    {
+      "Prodotto": "Composizone Stratos Executive",
+      "Descrizione": "",
+      "Prezzo": "1868.00",
+      "Immagine": "composizone_stratos_executive"
+    },
+    {
+      "Prodotto": "Composizione Cubo 19",
+      "Descrizione": "",
+      "Prezzo": "2005.00",
+      "Immagine": "composizione_cubo_19"
+    },
+    {
+      "Prodotto": "Composizione Stratos Army",
+      "Descrizione": "",
+      "Prezzo": "3352.00",
+      "Immagine": "composizione_stratos_army"
+    },
+    {
+      "Prodotto": "Composizione Stratos Doctor",
+      "Descrizione": "",
+      "Prezzo": "1605.00",
+      "Immagine": "composizione_stratos_doctor"
+    },
+    {
+      "Prodotto": "Composizone Rhea Interior Five",
+      "Descrizione": "",
+      "Prezzo": "3487.00",
+      "Immagine": "composizone_rhea_interior_five"
+    },
+    {
+      "Prodotto": "Composizione Rhea Interior Four",
+      "Descrizione": "",
+      "Prezzo": "1925.00",
+      "Immagine": "composizione_rhea_interior_four"
+    },
+    {
+      "Prodotto": "Composizione Cubo Professional One",
+      "Descrizione": "",
+      "Prezzo": "1452.00",
+      "Immagine": "composizione_cubo_professional_one"
+    },
+    {
+      "Prodotto": "Composizione Rhea Professional",
+      "Descrizione": "",
+      "Prezzo": "2124.00",
+      "Immagine": "composizione_rhea_professional"
+    },
+    {
+      "Prodotto": "Composizione Stratos Director",
+      "Descrizione": "",
+      "Prezzo": "1522.00",
+      "Immagine": "composizione_stratos_director"
+    },
+    {
+      "Prodotto": "Composizione Stratos Living",
+      "Descrizione": "",
+      "Prezzo": "846.00",
+      "Immagine": "composizione_stratos_living"
+    },
+    {
+      "Prodotto": "Composizione Stratos Team",
+      "Descrizione": "",
+      "Prezzo": "3658.00",
+      "Immagine": "composizione_stratos_team"
+    },
+    {
+      "Prodotto": "Composizione Derby Director",
+      "Descrizione": "",
+      "Prezzo": "2034.00",
+      "Immagine": "composizione_derby_director"
+    },
+    {
+      "Prodotto": "Composizione Derby Utility",
+      "Descrizione": "",
+      "Prezzo": "1388.00",
+      "Immagine": "composizione_derby_utility"
+    },
+    {
+      "Prodotto": "Composizione Derby Admin",
+      "Descrizione": "",
+      "Prezzo": "2316.00",
+      "Immagine": "composizione_derby_admin"
+    },
+    {
+      "Prodotto": "Composizione Derby Office",
+      "Descrizione": "",
+      "Prezzo": "1099.00",
+      "Immagine": "composizione_derby_office"
+    },
+    {
+      "Prodotto": "Composizione Derby Basic",
+      "Descrizione": "",
+      "Prezzo": "507.00",
+      "Immagine": "composizione_derby_basic"
+    },
+    {
+      "Prodotto": "Composizione Call Center",
+      "Descrizione": "",
+      "Prezzo": "1073.00",
+      "Immagine": "composizione_call_center"
+    },
+    {
+      "Prodotto": "Composizione Derby Eco",
+      "Descrizione": "",
+      "Prezzo": "1272.00",
+      "Immagine": "composizione_derby_eco"
+    },
+    {
+      "Prodotto": "Composizione Stratos Accounting",
+      "Descrizione": "",
+      "Prezzo": "2095.00",
+      "Immagine": "composizione_stratos_accounting"
+    },
+    {
+      "Prodotto": "Composizione Stratos Professional",
+      "Descrizione": "",
+      "Prezzo": "1006.00",
+      "Immagine": "composizione_stratos_professional"
+    },
+    {
+      "Prodotto": "Composizione Rhea Interior Easy",
+      "Descrizione": "",
+      "Prezzo": "1285.00",
+      "Immagine": "composizione_rhea_interior_easy"
+    },
+    {
+      "Prodotto": "Composizione Rhea Break Two",
+      "Descrizione": "",
+      "Prezzo": "1707.00",
+      "Immagine": "composizione_rhea_break_two"
+    },
+    {
+      "Prodotto": "Composizione Rhea Break One",
+      "Descrizione": "",
+      "Prezzo": "776.00",
+      "Immagine": "composizione_rhea_break_one"
+    },
+    {
+      "Prodotto": "Composizione Move Riunione Easy",
+      "Descrizione": "",
+      "Prezzo": "1734.00",
+      "Immagine": "composizione_move_riunione_easy"
+    },
+    {
+      "Prodotto": "Composizione Stratos Plus Break One",
+      "Descrizione": "",
+      "Prezzo": "986.00",
+      "Immagine": "composizione_stratos_plus_break_one"
+    },
+    {
+      "Prodotto": "Composizione Stratos Plus Break Two",
+      "Descrizione": "",
+      "Prezzo": "2681.00",
+      "Immagine": "composizione_stratos_plus_break_two"
+    },
+    {
+      "Prodotto": "Composizione Stratos Riunione",
+      "Descrizione": "",
+      "Prezzo": "2797.00",
+      "Immagine": "composizione_stratos_riunione"
+    },
+    {
+      "Prodotto": "Composizione Derby Riunione",
+      "Descrizione": "",
+      "Prezzo": "1837.00",
+      "Immagine": "composizione_derby_riunione"
+    },
+    {
+      "Prodotto": "Composizione Derby Riunione Two",
+      "Descrizione": "",
+      "Prezzo": "1820.00",
+      "Immagine": "composizione_derby_riunione_two"
+    },
+    {
+      "Prodotto": "Composizione Move Training",
+      "Descrizione": "",
+      "Prezzo": "3557.00",
+      "Immagine": "composizione_move_training"
+    },
+    {
+      "Prodotto": "Composizione Derby Riunione One",
+      "Descrizione": "",
+      "Prezzo": "1530.00",
+      "Immagine": "composizione_derby_riunione_one"
+    },
+    {
+      "Prodotto": "Composizione Front office Grand Hotel",
+      "Descrizione": "",
+      "Prezzo": "2295.00",
+      "Immagine": "composizione_front_office_grand_hotel"
+    },
+    {
+      "Prodotto": "Composizione Front Office HORECA",
+      "Descrizione": "",
+      "Prezzo": "2260.00",
+      "Immagine": "composizione_front_office_horeca"
+    },
+    {
+      "Prodotto": "Composizione Front Office Architecture",
+      "Descrizione": "",
+      "Prezzo": "1433.00",
+      "Immagine": "composizione_front_office_architecture"
+    },
+    {
+      "Prodotto": "Composizione Derby Reception",
+      "Descrizione": "",
+      "Prezzo": "1484.00",
+      "Immagine": "composizione_derby_reception"
+    },
+    {
+      "Prodotto": "Composizione Stratos Reception",
+      "Descrizione": "",
+      "Prezzo": "1367.00",
+      "Immagine": "composizione_stratos_reception"
+    },
+    {
+      "Prodotto": "Composizione Stratos Reception Two",
+      "Descrizione": "",
+      "Prezzo": "2712.00",
+      "Immagine": "composizione_stratos_reception_two"
+    },
+    {
+      "Prodotto": "Composizione Stratos Reception Three",
+      "Descrizione": "",
+      "Prezzo": "2095.00",
+      "Immagine": "composizione_stratos_reception_three"
+    },
+    {
+      "Prodotto": "Composizione Front Office Studio",
+      "Descrizione": "",
+      "Prezzo": "1835.00",
+      "Immagine": "composizione_front_office_studio"
+    },
+    {
+      "Prodotto": "Composizione Home One",
+      "Descrizione": "",
+      "Prezzo": "696.00",
+      "Immagine": "composizione_home_one"
+    },
+    {
+      "Prodotto": "Composizione Home Two",
+      "Descrizione": "",
+      "Prezzo": "1001.00",
+      "Immagine": "composizione_home_two"
+    },
+    {
+      "Prodotto": "Composizione Home Three",
+      "Descrizione": "",
+      "Prezzo": "538.00",
+      "Immagine": "composizione_home_three"
+    },
+    {
+      "Prodotto": "Composizione Home Four",
+      "Descrizione": "",
+      "Prezzo": "683.00",
+      "Immagine": "composizione_home_four"
+    },
+    {
+      "Prodotto": "Composizione Home Five",
+      "Descrizione": "",
+      "Prezzo": "830.00",
+      "Immagine": "composizione_home_five"
+    },
+    {
+      "Prodotto": "Composizione Home Six",
+      "Descrizione": "",
+      "Prezzo": "1057.00",
+      "Immagine": "composizione_home_six"
+    },
+    {
+      "Prodotto": "Composizione Home Seven",
+      "Descrizione": "",
+      "Prezzo": "934.00",
+      "Immagine": "composizione_home_seven"
+    },
+    {
+      "Prodotto": "Composizione di prova",
+      "Descrizione": "Descrizione della composizione di prova",
+      "Prezzo": "8540",
+      "Immagine": "composizione_di_prova"
+    }
+  ]
+}

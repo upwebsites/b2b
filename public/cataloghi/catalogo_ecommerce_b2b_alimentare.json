@@ -1,0 +1,190 @@
+{
+  "_editorMeta": {
+    "createdAt": "2026-07-28T10:49:08.627Z",
+    "versionNumber": "1.0.0",
+    "versionDescription": "",
+    "referenceDate": ""
+  },
+  "data": [
+    {
+      "Prodotto": "Divanetto in ecopelle",
+      "Descrizione": "Divanetto elegante in ecopelle per ambienti moderni",
+      "Prezzo": "870.00",
+      "Immagine": "divanetto_in_ecopelle"
+    },
+    {
+      "Prodotto": "Tavolinetto basso",
+      "Descrizione": "Tavolinetto basso per soggiorno e ambienti relax",
+      "Prezzo": "370.00",
+      "Immagine": "tavolinetto_basso"
+    },
+    {
+      "Prodotto": "Sedia in plastica dura",
+      "Descrizione": "Sedia resistente in plastica dura per esterni",
+      "Prezzo": "60.00",
+      "Immagine": "sedia_in_plastica_dura"
+    },
+    {
+      "Prodotto": "Tavolo con piede unico",
+      "Descrizione": "Tavolo moderno con design a piede unico",
+      "Prezzo": "290.00",
+      "Immagine": "tavolo_con_piede_unico"
+    },
+    {
+      "Prodotto": "Retro banco bar 4x6 metri",
+      "Descrizione": "Retro banco bar professionale 4x6 metri",
+      "Prezzo": "3900.00",
+      "Immagine": "retro_banco_bar_4x6_metri"
+    },
+    {
+      "Prodotto": "Friggitrice a 2 vasche gas",
+      "Descrizione": "70 x 80 x 85 17+17 LT",
+      "Prezzo": "3500.00",
+      "Immagine": "friggitrice_a_2_vasche_gas_70_x_80_x_85_17+17_lt"
+    },
+    {
+      "Prodotto": "Fry top gas liscio rigato",
+      "Descrizione": "70 x 80 x85",
+      "Prezzo": "3300.00",
+      "Immagine": "fry_top_gas_liscio_rigato_70_x_80_x85"
+    },
+    {
+      "Prodotto": "Cassettiera neutra 3 cassetti",
+      "Descrizione": "40 x 70 x 85 con alzatina",
+      "Prezzo": "800.00",
+      "Immagine": "cassettiera_neutra_3_cassetti_40_x_70_x_85_con_alzatina"
+    },
+    {
+      "Prodotto": "Cuocipasta gas",
+      "Descrizione": "80 x 70 x 85 incluso 3 cesti normali + due cesti inox",
+      "Prezzo": "5800.00",
+      "Immagine": "cuocipasta_gas_80_x_70_x_85_incluso_3_cesti_normali_+_due_cesti_inox"
+    },
+    {
+      "Prodotto": "Cucina gas 6 fuochi forno",
+      "Descrizione": "120 x 70 x 85",
+      "Prezzo": "5400.00",
+      "Immagine": "cucina_gas_6_fuochi_forno_120_x_70_x_85"
+    },
+    {
+      "Prodotto": "Abbattitore temperatura",
+      "Descrizione": "75 x 70 x 85 5 teglie",
+      "Prezzo": "5800.00",
+      "Immagine": "abbattitore_temperatura_75_x_70_x_85_5_teglie"
+    },
+    {
+      "Prodotto": "Tavolo neutro aperto con ripiano",
+      "Descrizione": "40 x 70 x 85 a 5 teglie",
+      "Prezzo": "300.00",
+      "Immagine": "tavolo_neutro_aperto_con_ripiano_40_x_70_x_85_a_5_teglie"
+    },
+    {
+      "Prodotto": "Tavolo inox per inserimento abbattitore",
+      "Descrizione": "100 x 70 x 85",
+      "Prezzo": "300.00",
+      "Immagine": "tavolo_inox_per_inserimento_abbattitore_100_x_70_x_85"
+    },
+    {
+      "Prodotto": "Forno elettrico a 5 teglie autopulente",
+      "Descrizione": "con sonde al cuore in dotazione",
+      "Prezzo": "6850.00",
+      "Immagine": "forno_elettrico_a_5_teglie_autopulente_con_sonde_al_cuore_in_dotazione"
+    },
+    {
+      "Prodotto": "Cappa sopraforno Alcapone",
+      "Descrizione": "a filtri interni",
+      "Prezzo": "1980.00",
+      "Immagine": "cappa_sopraforno_alcapone_a_filtri_interni"
+    },
+    {
+      "Prodotto": "Fontana a leva normale",
+      "Descrizione": "",
+      "Prezzo": "200.00",
+      "Immagine": "fontana_a_leva_normale"
+    },
+    {
+      "Prodotto": "Lavello a 2 vasche con gocciolatoio aperto e ripiano",
+      "Descrizione": "",
+      "Prezzo": "820.00",
+      "Immagine": "lavello_a_2_vasche_con_gocciolatoio_aperto_e_ripiano"
+    },
+    {
+      "Prodotto": "Base frigo a 3 porte completa di motore a bordo e alzatina",
+      "Descrizione": "",
+      "Prezzo": "1600.00",
+      "Immagine": "base_frigo_a_3_porte_completa_di_motore_a_bordo_e_alzatina"
+    },
+    {
+      "Prodotto": "Base per congelatore a 3 porte con alzatina in dotazione",
+      "Descrizione": "",
+      "Prezzo": "1900.00",
+      "Immagine": "base_per_congelatore_a_3_porte_con_alzatina_in_dotazione"
+    },
+    {
+      "Prodotto": "Tavolo inox aperto con ripiano ed alzatina",
+      "Descrizione": "",
+      "Prezzo": "400.00",
+      "Immagine": "tavolo_inox_aperto_con_ripiano_ed_alzatina"
+    },
+    {
+      "Prodotto": "Lampade calde colore luce rossa",
+      "Descrizione": "",
+      "Prezzo": "200.00",
+      "Immagine": "lampade_calde_colore_luce_rossa"
+    },
+    {
+      "Prodotto": "Microonde nero",
+      "Descrizione": "31 LT",
+      "Prezzo": "350.00",
+      "Immagine": "microonde_nero_31_lt"
+    },
+    {
+      "Prodotto": "Cappottina P100",
+      "Descrizione": "70 x 75 x 180",
+      "Prezzo": "4600.00",
+      "Immagine": "cappottina_p100_70_x_75_x_180"
+    },
+    {
+      "Prodotto": "Lavello a doppia vasca completo di gocciolatoio a sbalzo aperto",
+      "Descrizione": "160 x 70 x 85",
+      "Prezzo": "1150.00",
+      "Immagine": "lavello_a_doppia_vasca_completo_di_gocciolatoio_a_sbalzo_aperto_160_x_70_x_85"
+    },
+    {
+      "Prodotto": "Tavolo inox con foro sbarazzo aperto",
+      "Descrizione": "70 x 70 x 85",
+      "Prezzo": "600.00",
+      "Immagine": "tavolo_inox_con_foro_sbarazzo_aperto_70_x_70_x_85"
+    },
+    {
+      "Prodotto": "Doccetta alta SAMMIC",
+      "Descrizione": "",
+      "Prezzo": "400.00",
+      "Immagine": "doccetta_alta_sammic"
+    },
+    {
+      "Prodotto": "Tavolo inox aperto con ripiano 150 x 70 x 85 no alzatina",
+      "Descrizione": "",
+      "Prezzo": "400.00",
+      "Immagine": "tavolo_inox_aperto_con_ripiano_150_x_70_x_85_no_alzatina"
+    },
+    {
+      "Prodotto": "Armadio frigo a 2 porte 1.400 lt",
+      "Descrizione": "80 x 140 x 210",
+      "Prezzo": "1950.00",
+      "Immagine": "armadio_frigo_a_2_porte_1_400_lt_80_x_140_x_210"
+    },
+    {
+      "Prodotto": "Vetrina bibita 1 porta colore nero",
+      "Descrizione": "60 x 60 x 185",
+      "Prezzo": "1100.00",
+      "Immagine": "vetrina_bibita_1_porta_colore_nero_60_x_60_x_185"
+    },
+    {
+      "Prodotto": "Prodotto di prova",
+      "Descrizione": "Descrizione del prodotto di prova",
+      "Prezzo": "900",
+      "Immagine": "prodotto_di_prova"
+    }
+  ]
+}
