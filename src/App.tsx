@@ -2,11 +2,9 @@ import React, { useState, useEffect, useRef, useMemo } from 'react';
 import {
   Armchair as Chair,
   Laptop,
-  FileText,
   Mail,
   MapPin,
   Phone,
-  Menu,
   X,
   Shield,
   Zap,
@@ -26,141 +24,74 @@ import {
   Monitor,
   UtensilsCrossed,
   ShieldCheck,
-  Check
+  Check,
+  Layers,
+  Clock
 } from 'lucide-react';
-import { jsPDF } from 'jspdf';
-import CategoryLanding, { ProductCategory } from "./CategoryLanding";
+import CategoryLanding from "./CategoryLanding";
 import WhatsAppWidget from "./WhatsAppWidget";
 
-function cx(...classes: (string | false | undefined)[]) { return classes.filter(Boolean).join(' '); }
-
-// Header with Helvetica Neue typography and monochrome style
-const Header = ({ onEcommerce }: { onEcommerce?: () => void }) => {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const navItems = [
-    { label: 'Servizi', hash: 'servizi' },
-    { label: 'Capitolato', hash: 'capitolato' },
-    { label: 'Processo', hash: 'processo' },
-    { label: 'Risultati', hash: 'risultati' },
-    { label: 'Catalogo', hash: 'catalogo' },
-  ];
-  const scroll = (h: string) => { document.getElementById(h)?.scrollIntoView({ behavior: 'smooth' }); };
+// Top Logo Header Component
+const TopLogo = () => {
   return (
-    <header className="fixed w-full top-0 z-50 bg-surface/95 backdrop-blur-xl border-b border-border transition-all duration-300">
-      <div className="max-w-7xl mx-auto px-5 md:px-8">
-        <div className="flex items-center justify-between h-16">
-          <div className="flex items-center gap-3 cursor-pointer" onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}>
-            <div className="flex items-center gap-2">
-              <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
-              <span className="font-helvetica-light text-xl font-light tracking-tighter text-text">
-                B2B <span className="font-helvetica-regular font-normal text-text-3">GROUP</span>
-              </span>
-            </div>
-            <span className="hidden sm:inline-block px-2 py-0.5 rounded bg-surface-2 border border-border text-[9px] font-mono tracking-widest text-text-3 uppercase">
-              ENTERPRISE B2B
-            </span>
-          </div>
-          <nav className="hidden md:flex items-center gap-1">
-            {navItems.map(item => (
-              <button
-                key={item.hash}
-                onClick={() => scroll(item.hash)}
-                className="px-3.5 py-1.5 text-xs font-helvetica-regular font-normal uppercase tracking-wider text-text-2 hover:text-text rounded-lg hover:bg-surface-2 transition-all"
-              >
-                {item.label}
-              </button>
-            ))}
-          </nav>
-          <div className="hidden md:flex items-center gap-3">
-            <button
-              onClick={() => scroll('contatti')}
-              className="px-4 py-2 text-xs font-helvetica-regular font-normal uppercase tracking-wider text-text-2 hover:text-text rounded-lg hover:bg-surface-2 transition-all"
-            >
-              Contatti
-            </button>
-            <button
-              onClick={onEcommerce}
-              className="bg-primary text-white px-5 py-2 rounded-xl text-xs font-mono font-bold tracking-wider uppercase shadow-md hover:bg-primary-hover transition-all flex items-center gap-2"
-            >
-              <ShoppingCart className="w-4 h-4 text-white" /> Catalogo Ordini
-            </button>
-          </div>
-          <button className="md:hidden p-2 text-text-2 hover:bg-surface-2 rounded-lg transition-colors" onClick={() => setIsMenuOpen(!isMenuOpen)}>
-            {isMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
-          </button>
-        </div>
-        {isMenuOpen && (
-          <div className="md:hidden pb-4 border-t border-border pt-3">
-            <div className="flex flex-col gap-1">
-              {navItems.concat([{ label: 'Contatti', hash: 'contatti' }]).map(item => (
-                <button
-                  key={item.hash}
-                  onClick={() => { scroll(item.hash); setIsMenuOpen(false); }}
-                  className="text-left px-4 py-2.5 text-xs font-helvetica-regular uppercase tracking-wider text-text-2 hover:text-text hover:bg-surface-2 rounded-lg transition-colors"
-                >
-                  {item.label}
-                </button>
-              ))}
-              <button
-                onClick={() => { onEcommerce?.(); setIsMenuOpen(false); }}
-                className="mt-2 bg-primary text-white px-5 py-3 rounded-xl text-xs font-mono font-bold tracking-wider uppercase text-center flex items-center justify-center gap-2 shadow-md hover:bg-primary-hover"
-              >
-                <ShoppingCart className="w-4 h-4 text-white" /> Catalogo Ordini
-              </button>
-            </div>
-          </div>
-        )}
-      </div>
+    <header className="w-full pt-10 pb-6 md:pt-14 md:pb-8 flex items-center justify-center bg-white">
+      <img
+        src="/images/logo/logodef.svg"
+        alt="B2B Group Logo"
+        className="h-20 sm:h-24 md:h-28 lg:h-32 w-auto max-w-[85vw] object-contain drop-shadow-sm transition-transform duration-300 hover:scale-[1.02]"
+      />
     </header>
   );
 };
 
-// Clean Hero Section with Helvetica Typography
+// Clean Hero Section in Professional Italian
 const HeroSection = ({ onEcommerce }: { onEcommerce?: () => void }) => {
   const scroll = (h: string) => { document.getElementById(h)?.scrollIntoView({ behavior: 'smooth' }); };
   return (
-    <section className="pt-28 pb-20 md:pt-36 md:pb-28 bg-surface relative overflow-hidden">
-      {/* Subtle ambient glows */}
+    <section className="pt-8 pb-16 md:pt-12 md:pb-24 bg-white relative overflow-hidden">
+      {/* Subtle ambient background glow */}
       <div className="absolute top-10 left-1/4 w-96 h-96 bg-primary/10 rounded-full blur-3xl animate-pulse-glow pointer-events-none" />
-      <div className="absolute bottom-10 right-10 w-80 h-80 bg-primary/5 rounded-full blur-3xl animate-float-slow pointer-events-none" />
+      <div className="absolute bottom-10 right-10 w-80 h-80 bg-accent/10 rounded-full blur-3xl animate-float-slow pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
-          <h1 className="font-helvetica-light text-4xl sm:text-5xl lg:text-6xl font-light text-text leading-[1.06] tracking-tighter mb-6">
-            Infrastrutture e forniture direzionali per <span className="font-helvetica-regular font-normal text-text marker-underline">aziende che scalano</span>.
+          <h1 className="font-helvetica-light text-4xl sm:text-5xl lg:text-6xl font-light text-text leading-[1.1] tracking-tighter mb-6">
+            Forniture e attrezzature professionali per <span className="font-helvetica-regular font-normal text-text marker-underline">aziende in crescita</span>.
           </h1>
           <p className="font-helvetica-regular text-text-2 text-base md:text-lg leading-relaxed tracking-tight mb-8 max-w-2xl mx-auto">
-            Fornitore unico certificato per infrastrutture IT, arredo operativo ergonomico, impiantistica alimentare Horeca e consumabili corporate. Zero intermediari, SLA garantiti.
+            Un unico interlocutore per informatica e reti aziendali, arredo per ufficio, attrezzature per la ristorazione e materiali di consumo. Consegne rapide, assistenza diretta e condizioni riservate alle imprese.
           </p>
 
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
             <button
               onClick={() => scroll('contatti')}
-              className="bg-primary text-white px-8 py-4 rounded-full text-xs font-mono font-bold tracking-wider uppercase shadow-professional hover:bg-primary-hover transition-all flex items-center justify-center gap-2 group hover:scale-105 duration-200"
+              className="bg-primary text-white px-8 py-3.5 rounded-full text-sm font-semibold shadow-md hover:shadow-lg hover:bg-primary-hover active:scale-[0.98] transition-all flex items-center justify-center gap-2 group"
             >
-              Inizia Progetto <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+              <span>Richiedi informazioni</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
             <button
               onClick={onEcommerce}
-              className="bg-surface-2/80 text-text border border-border/80 px-8 py-4 rounded-full text-xs font-mono font-bold tracking-wider uppercase hover:bg-surface-3 transition-all flex items-center justify-center gap-2 hover:scale-105 duration-200"
+              className="bg-white text-text border border-border px-8 py-3.5 rounded-full text-sm font-semibold hover:border-primary/40 hover:bg-surface-2 transition-all flex items-center justify-center gap-2 group"
             >
-              Esplora Catalogo Prodotti
+              <span>Consulta il catalogo prodotti</span>
+              <ArrowRight className="w-4 h-4 text-text-3 transition-transform group-hover:translate-x-1 group-hover:text-primary" />
             </button>
           </div>
 
-          {/* Micro Stats Banner */}
-          <div className="grid grid-cols-3 gap-6 pt-8 border-t border-border/60 max-w-3xl mx-auto">
-            <div className="relative group">
-              <p className="font-helvetica-bold text-4xl sm:text-5xl text-primary font-bold tracking-tight">500+</p>
-              <p className="font-helvetica-regular text-xs text-text-2 tracking-tight uppercase font-medium mt-1">Aziende Partner</p>
+          {/* Micro Stats Banner in clear Italian */}
+          <div className="grid grid-cols-3 gap-6 pt-4 max-w-3xl mx-auto">
+            <div>
+              <p className="font-helvetica-bold text-3xl sm:text-4xl text-primary font-bold tracking-tight">500+</p>
+              <p className="font-helvetica-regular text-xs text-text-2 tracking-tight mt-1">Aziende servite</p>
             </div>
-            <div className="relative group">
-              <p className="font-helvetica-bold text-4xl sm:text-5xl text-text font-bold tracking-tight">24-48h</p>
-              <p className="font-helvetica-regular text-xs text-text-2 tracking-tight uppercase font-medium mt-1">SLA Magazzino</p>
+            <div>
+              <p className="font-helvetica-bold text-3xl sm:text-4xl text-text font-bold tracking-tight">24-48h</p>
+              <p className="font-helvetica-regular text-xs text-text-2 tracking-tight mt-1">Tempi di spedizione</p>
             </div>
-            <div className="relative group">
-              <p className="font-helvetica-bold text-4xl sm:text-5xl text-primary font-bold tracking-tight">100%</p>
-              <p className="font-helvetica-regular text-xs text-text-2 tracking-tight uppercase font-medium mt-1">ISO/CE Certified</p>
+            <div>
+              <p className="font-helvetica-bold text-3xl sm:text-4xl text-primary font-bold tracking-tight">100%</p>
+              <p className="font-helvetica-regular text-xs text-text-2 tracking-tight mt-1">Prodotti certificati</p>
             </div>
           </div>
         </div>
@@ -169,7 +100,7 @@ const HeroSection = ({ onEcommerce }: { onEcommerce?: () => void }) => {
   );
 };
 
-// Partner Scrolling Marquee with Monochrome Logos
+// Partner Scrolling Marquee
 const TrustedBy = () => {
   const partnerLogos = [
     { name: "Epson", src: "/images/fornitori/Epson_logo.svg" },
@@ -183,10 +114,10 @@ const TrustedBy = () => {
   ];
 
   return (
-    <section id="partner" className="py-10 md:py-14 bg-surface relative overflow-hidden border-y border-slate-100">
+    <section id="partner" className="py-8 md:py-10 bg-white relative overflow-hidden">
       {/* Side gradient fades */}
-      <div className="absolute left-0 top-0 bottom-0 w-16 md:w-28 bg-gradient-to-r from-surface to-transparent z-10 pointer-events-none" />
-      <div className="absolute right-0 top-0 bottom-0 w-16 md:w-28 bg-gradient-to-l from-surface to-transparent z-10 pointer-events-none" />
+      <div className="absolute left-0 top-0 bottom-0 w-16 md:w-28 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none" />
+      <div className="absolute right-0 top-0 bottom-0 w-16 md:w-28 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none" />
 
       <div className="flex w-max partner-marquee-track">
         <div className="flex items-center gap-12 md:gap-16 lg:gap-20 shrink-0 pr-12 md:pr-16 lg:pr-20">
@@ -195,7 +126,7 @@ const TrustedBy = () => {
               <img
                 src={logo.src}
                 alt={logo.name}
-                className="h-8 md:h-10 lg:h-11 max-w-[140px] md:max-w-[180px] w-auto object-contain grayscale opacity-55 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                className="h-8 md:h-9 max-w-[140px] md:max-w-[170px] w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
               />
             </div>
           ))}
@@ -206,7 +137,7 @@ const TrustedBy = () => {
               <img
                 src={logo.src}
                 alt={logo.name}
-                className="h-8 md:h-10 lg:h-11 max-w-[140px] md:max-w-[180px] w-auto object-contain grayscale opacity-55 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
+                className="h-8 md:h-9 max-w-[140px] md:max-w-[170px] w-auto object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
               />
             </div>
           ))}
@@ -216,420 +147,46 @@ const TrustedBy = () => {
   );
 };
 
-// Features Section - Organic Floating Engineering Stage (No Rigid Box Enclosures)
-const FeaturesSection = () => {
-  const features = [
-    {
-      icon: Cpu,
-      title: "Audit Infrastrutturale e Consulenza IT",
-      desc: "Analisi tecnica preliminare dei sistemi operativi e dei colli di bottiglia aziendali. Identifichiamo ridondanze hardware, costi superflui e fabbisogni di scalabilità.",
-      checklist: [
-        "Audit di sicurezza e vulnerability assessment",
-        "Analisi costi TCO (Total Cost of Ownership)",
-        "Mappatura dei fabbisogni hardware & licensing",
-        "Report strategico con ROI stimato"
-      ],
-      vectorGraphic: (
-        <div className="space-y-5 p-2">
-          <div className="flex justify-between items-center pb-3 border-b border-primary/30">
-            <span className="font-helvetica-regular text-xs text-text uppercase tracking-wider font-medium">Diagnostica System Audit</span>
-            <span className="font-mono text-xs text-primary font-medium">STATUS: OK</span>
-          </div>
-          <div className="space-y-4">
-            <div>
-              <div className="flex justify-between mb-1.5">
-                <span className="font-helvetica-regular text-xs text-text-2">Hardware Efficiency Rate</span>
-                <span className="font-helvetica-bold text-2xl text-primary font-semibold">94.8%</span>
-              </div>
-              <div className="w-full bg-surface-3 h-2.5 rounded-full overflow-hidden p-0.5 border border-border">
-                <div className="bg-primary h-full rounded-full w-[94.8%] transition-all duration-1000" />
-              </div>
-            </div>
-            <div>
-              <div className="flex justify-between mb-1.5">
-                <span className="font-helvetica-regular text-xs text-text-2">Network Latency Index</span>
-                <span className="font-helvetica-bold text-2xl text-text font-semibold">1.2ms</span>
-              </div>
-              <div className="w-full bg-surface-3 h-2.5 rounded-full overflow-hidden p-0.5 border border-border">
-                <div className="bg-text-2 h-full rounded-full w-[88%]" />
-              </div>
-            </div>
-          </div>
-          <div className="pt-3 border-t border-border/80 flex items-center justify-between">
-            <span className="font-mono text-xs text-primary font-medium">Pronti per migrazione enterprise</span>
-            <span className="font-mono text-[10px] text-text-3">NO DOWNTIME</span>
-          </div>
-        </div>
-      ),
-      reverse: false
-    },
-    {
-      icon: Chair,
-      title: "Progettazione Space Planning & Ergonomia",
-      desc: "Sviluppo di layout 3D per ambienti direzionali e operativi conformi alle normative UNI EN-1335. Integrazione fra arredo ad alto comfort, passaggi cavi e fonoassorbimento acustico.",
-      checklist: [
-        "Render 3D fotorealistici e planimetrie quotate",
-        "Selezione arredi con certificazione ergonomica",
-        "Piani acustici integrati per open-space",
-        "Customizzazione finiture e colori corporate"
-      ],
-      vectorGraphic: (
-        <div className="space-y-5 p-2">
-          <div className="flex justify-between items-center pb-3 border-b border-primary/30">
-            <span className="font-helvetica-regular text-xs text-text uppercase tracking-wider font-medium">CAD Space Schematic</span>
-            <span className="font-mono text-xs text-primary font-medium">Norma EN-1335</span>
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            <div className="p-4 rounded-2xl bg-surface/90 border border-border text-center">
-              <span className="font-mono text-[10px] text-text-3 block uppercase">CAPACITÀ POSTAZIONI</span>
-              <span className="font-helvetica-bold text-3xl text-text font-semibold block mt-1">250+</span>
-              <span className="font-mono text-xs text-primary block mt-1">postazioni operative</span>
-            </div>
-            <div className="p-4 rounded-2xl bg-surface/90 border border-primary/30 text-center">
-              <span className="font-mono text-[10px] text-text-3 block uppercase">ISOLAMENTO ACUSTICO</span>
-              <span className="font-helvetica-bold text-3xl text-primary font-semibold block mt-1">-34 dB</span>
-              <span className="font-mono text-xs text-text-2 block mt-1">fonoassorbimento OK</span>
-            </div>
-          </div>
-          <div className="flex items-center gap-2 text-xs text-text-2 pt-2 border-t border-border/80">
-            <CheckCircle className="w-4 h-4 text-primary shrink-0" />
-            <span className="font-helvetica-regular">Parametri ergonomici approvati dai nostri ingegneri posturali.</span>
-          </div>
-        </div>
-      ),
-      reverse: true
-    },
-    {
-      icon: Shield,
-      title: "Deploy, Installazione & Assistenza H24",
-      desc: "Installazione in loco effettuata da tecnici specializzati con piano zero-downtime. Collaudo delle apparecchiature IT e macchinari Horeca con assistenza continua post-vendita.",
-      checklist: [
-        "Messa in opera e cablaggio strutturato",
-        "Collaudo impianti e configurazione apparati",
-        "Formazione del personale aziendale",
-        "SLA di intervento garantito in 2 ore"
-      ],
-      vectorGraphic: (
-        <div className="space-y-5 p-2">
-          <div className="flex justify-between items-center pb-3 border-b border-primary/30">
-            <span className="font-helvetica-regular text-xs text-text uppercase tracking-wider font-medium">Logistics & SLA Matrix</span>
-            <span className="font-mono text-xs text-primary font-medium">SLA H24</span>
-          </div>
-          <div className="space-y-3">
-            <div className="flex justify-between items-center p-3 bg-surface/80 rounded-2xl border border-border">
-              <span className="font-helvetica-regular text-xs text-text-2">Tempo d'Intervento sul Posto:</span>
-              <span className="font-helvetica-bold text-xl text-primary font-semibold">&lt; 120 Minuti</span>
-            </div>
-            <div className="flex justify-between items-center p-3 bg-surface/80 rounded-2xl border border-border">
-              <span className="font-helvetica-regular text-xs text-text-2">Magazzino Ricambi B2B:</span>
-              <span className="font-mono text-xs text-primary font-medium">100% Disponibile</span>
-            </div>
-          </div>
-          <div className="pt-2 flex items-center justify-between text-xs font-mono text-text-3">
-            <span>COPERTURA: Nazionale</span>
-            <span className="font-mono text-xs text-primary font-medium">100% OPERATIVO</span>
-          </div>
-        </div>
-      ),
-      reverse: false
-    }
-  ];
-
-  return (
-    <section id="servizi" className="py-20 md:py-28 bg-surface border-b border-border relative">
-      <div className="max-w-7xl mx-auto px-5 md:px-8">
-        <div className="text-center mb-16 md:mb-24">
-          <h2 className="font-helvetica-light text-3xl md:text-4xl lg:text-5xl font-light text-text tracking-tighter mb-4 leading-tight">
-            Metodologia ingegneristica <span className="font-helvetica-regular text-text marker-underline">senza sorprese</span>.
-          </h2>
-          <p className="font-helvetica-regular text-text-2 max-w-2xl mx-auto text-base tracking-tight leading-relaxed">
-            Dalla diagnosi iniziale alla consegna chiavi in mano, seguiamo protocolli stringenti per assicurare tempistiche e budget pattuiti.
-          </p>
-        </div>
-
-        <div className="space-y-20 md:space-y-28">
-          {features.map((f, idx) => (
-            <div key={idx} className="grid lg:grid-cols-12 gap-10 lg:gap-12 items-center">
-              <div className={cx('lg:col-span-6 space-y-6', f.reverse && 'lg:order-2')}>
-                <h3 className="font-helvetica-light text-2xl md:text-3xl font-light text-text tracking-tighter">
-                  {f.title}
-                </h3>
-                <p className="font-helvetica-regular text-text-2 text-sm md:text-base leading-relaxed tracking-tight">
-                  {f.desc}
-                </p>
-                <ul className="space-y-3 pt-2">
-                  {f.checklist.map((item, i) => (
-                    <li key={i} className="flex items-center gap-3 text-xs md:text-sm font-helvetica-regular text-text-2">
-                      <div className="w-5 h-5 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center shrink-0">
-                        <Check className="w-3 h-3 text-primary" />
-                      </div>
-                      {item}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Organic Stage Graphic Frame */}
-              <div className={cx('lg:col-span-6', f.reverse && 'lg:order-1')}>
-                <div className="relative p-6 sm:p-8 bg-surface-2/60 backdrop-blur-md rounded-3xl border border-primary/20 shadow-xl overflow-hidden hover:scale-[1.01] transition-transform duration-300">
-                  <div className="flex items-center gap-3.5 mb-6 pb-4 border-b border-border/80">
-                    <div className="w-12 h-12 rounded-2xl bg-primary/20 border border-primary/40 flex items-center justify-center text-primary shadow-inner">
-                      <f.icon className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h4 className="font-helvetica-light text-sm font-light text-text tracking-tight uppercase">{f.title}</h4>
-                      <p className="font-mono text-xs text-primary font-medium">Scheda Tecnica Verificata</p>
-                    </div>
-                  </div>
-                  {f.vectorGraphic}
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// NEW SECTION: Interactive B2B Quote & Capitolato Estimator Widget (Organic Studio Canvas)
-const CapitolatoEstimator = ({ onAddToCart }: { onAddToCart: (item: Product) => void }) => {
-  const [settore, setSettore] = useState<'it' | 'arredo' | 'horeca' | 'ufficio'>('it');
-  const [dipendenti, setDipendenti] = useState<number>(25);
-  const [sla, setSla] = useState<'standard' | 'executive' | 'critical'>('executive');
-
-  // Interactive estimates logic
-  const basePricePerPerson = {
-    it: 450,
-    arredo: 620,
-    horeca: 980,
-    ufficio: 120,
-  };
-
-  const slaMultiplier = {
-    standard: 1.0,
-    executive: 1.15,
-    critical: 1.35,
-  };
-
-  const stimaTotale = Math.round(dipendenti * basePricePerPerson[settore] * slaMultiplier[sla]);
-
-  const generateCapitolatoProduct = (): Product => {
-    const names = {
-      it: `Capitolato IT & Cloud (${dipendenti} postazioni, SLA ${sla.toUpperCase()})`,
-      arredo: `Capitolato Arredo Direzionale (${dipendenti} postazioni, SLA ${sla.toUpperCase()})`,
-      horeca: `Capitolato Impiantistica Horeca (${dipendenti} coperti/unità, SLA ${sla.toUpperCase()})`,
-      ufficio: `Capitolato Forniture Ufficio (${dipendenti} operatori, SLA ${sla.toUpperCase()})`,
-    };
-    const images: Record<string, string> = {
-      it: 'acer_desktop_aspire_xc_1780_intel®_core_i5_13400_1_8_ghz_uhd_graphics_ram_16_gb_512_gb_ssd',
-      arredo: 'composizione_derby_office',
-      horeca: 'banco_pizza_completo_3_porte',
-      ufficio: 'fabriano_copy_2_performance_carta_a4_per_fotocopie_e_stampe_80_g_m²_bianco_risma_500_fogli',
-    };
-    return {
-      id: `capitolato-${settore}-${dipendenti}-${sla}`,
-      nome: names[settore],
-      prezzo: stimaTotale,
-      immagine: images[settore] || 'composizione_derby_office',
-    };
-  };
-
-  return (
-    <section id="capitolato" className="py-20 md:py-28 bg-surface-2 border-b border-border relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
-        <div className="text-center mb-16">
-          <h2 className="font-helvetica-light text-3xl md:text-4xl lg:text-5xl font-light text-text tracking-tighter mb-4 leading-tight">
-            Calcola l'investimento per la <span className="font-helvetica-regular text-text marker-underline">tua azienda</span>.
-          </h2>
-          <p className="font-helvetica-regular text-text-2 max-w-2xl mx-auto text-base tracking-tight leading-relaxed">
-            Seleziona la dimensione dell'organico e il livello di servizio desiderato per ottenere una stima immediata sul capitolato forniture.
-          </p>
-        </div>
-
-        {/* Organic Studio Canvas - No Enclosing Rigid Box */}
-        <div className="relative p-6 md:p-10 bg-surface/80 backdrop-blur-md rounded-3xl border border-primary/20 shadow-2xl">
-          <div className="grid lg:grid-cols-12 gap-10">
-            {/* Controls */}
-            <div className="lg:col-span-7 space-y-8">
-              {/* Step 1: Sector */}
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-widest text-text-3 mb-3">
-                  1. SELEZIONA DIVISIONE FORNITURA
-                </label>
-                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                  {[
-                    { id: 'it', label: 'Informatica IT', icon: Cpu },
-                    { id: 'arredo', label: 'Arredo Ufficio', icon: Chair },
-                    { id: 'horeca', label: 'Horeca & Cibo', icon: UtensilsCrossed },
-                    { id: 'ufficio', label: 'Forniture Office', icon: Package },
-                  ].map((s) => (
-                    <button
-                      key={s.id}
-                      onClick={() => setSettore(s.id as 'it' | 'arredo' | 'horeca' | 'ufficio')}
-                      className={`p-4 rounded-full border text-left transition-all flex items-center gap-2.5 ${
-                        settore === s.id
-                          ? 'border-primary bg-primary/10 text-text ring-2 ring-primary/40 shadow-md scale-105'
-                          : 'border-border/80 bg-surface-2/60 text-text-2 hover:border-primary/40'
-                      }`}
-                    >
-                      <s.icon className={`w-4 h-4 shrink-0 ${settore === s.id ? 'text-primary' : 'text-text-3'}`} />
-                      <span className="font-helvetica-regular text-xs font-medium block truncate">{s.label}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              {/* Step 2: Scale */}
-              <div>
-                <div className="flex justify-between items-center mb-3">
-                  <label className="text-xs font-mono uppercase tracking-widest text-text-3">
-                    2. DIMENSIONE ORGANICO / POSTAZIONI:
-                  </label>
-                  <span className="font-marker text-2xl text-primary">{dipendenti} Postazioni</span>
-                </div>
-                <input
-                  type="range"
-                  min="5"
-                  max="500"
-                  step="5"
-                  value={dipendenti}
-                  onChange={(e) => setDipendenti(parseInt(e.target.value))}
-                  className="w-full accent-primary bg-surface-3 h-3 rounded-full cursor-pointer"
-                />
-                <div className="flex justify-between text-[11px] font-mono text-text-3 mt-2">
-                  <span>5 Units (Startup)</span>
-                  <span>100 Units (Mid-size)</span>
-                  <span>500 Units (Enterprise)</span>
-                </div>
-              </div>
-
-              {/* Step 3: SLA */}
-              <div>
-                <label className="block text-xs font-mono uppercase tracking-widest text-text-3 mb-3">
-                  3. LIVELLO ASSISTENZA & GARANZIA (SLA)
-                </label>
-                <div className="grid grid-cols-3 gap-3">
-                  {[
-                    { id: 'standard', title: 'Standard 24h', desc: 'Sostituzione 24-48h' },
-                    { id: 'executive', title: 'Executive 8h', desc: 'Intervento in 8 ore' },
-                    { id: 'critical', title: 'Mission Critical 2h', desc: 'Presidio H24 dedicato' },
-                  ].map((tier) => (
-                    <button
-                      key={tier.id}
-                      onClick={() => setSla(tier.id as 'standard' | 'executive' | 'critical')}
-                      className={`p-3.5 rounded-2xl border text-left transition-all ${
-                        sla === tier.id
-                          ? 'border-primary bg-primary/10 text-text ring-2 ring-primary/40 shadow-md'
-                          : 'border-border/80 bg-surface-2/60 text-text-2 hover:border-primary/40'
-                      }`}
-                    >
-                      <span className="font-helvetica-regular text-xs font-bold block mb-0.5">{tier.title}</span>
-                      <span className="font-mono text-[9px] text-text-3 block">{tier.desc}</span>
-                    </button>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Live Calculation Output Canvas */}
-            <div className="lg:col-span-5 flex flex-col justify-between p-6 sm:p-8 rounded-3xl bg-surface-2/80 border border-primary/30 relative overflow-hidden shadow-2xl">
-              <div className="absolute -top-3 -right-3 bg-primary text-white font-marker text-xs px-4 py-1.5 rounded-full uppercase stamp-tag font-bold shadow-lg animate-bounce">
-                ISTANTANEO ★
-              </div>
-              <div>
-                <div className="flex items-center justify-between pb-3 border-b border-border/80 mb-6">
-                  <span className="font-helvetica-bold text-xs text-text-2 uppercase tracking-widest font-bold">RIEPILOGO ESTIMATORE</span>
-                  <span className="font-helvetica-regular text-sm text-primary font-bold">
-                    Stima #B2B-EST
-                  </span>
-                </div>
-
-                <div className="space-y-3.5 mb-8">
-                  <div className="flex justify-between text-xs">
-                    <span className="text-text-2">Settore Scelto:</span>
-                    <span className="text-text font-helvetica-regular uppercase font-bold">{settore}</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-text-2">Capienza Postazioni:</span>
-                    <span className="text-text font-helvetica-regular font-bold">{dipendenti} Unità</span>
-                  </div>
-                  <div className="flex justify-between text-xs">
-                    <span className="text-text-2">Livello SLA:</span>
-                    <span className="text-text font-helvetica-regular uppercase font-bold">{sla}</span>
-                  </div>
-                  <div className="flex justify-between text-xs pt-3 border-t border-border/80">
-                    <span className="text-text-2">Costo medio per postazione:</span>
-                    <span className="text-primary font-helvetica-bold font-bold text-sm">
-                      € {Math.round(stimaTotale / dipendenti).toLocaleString('it-IT')} / unit
-                    </span>
-                  </div>
-                </div>
-
-                <div className="relative p-5 rounded-2xl bg-surface border border-primary/40 mb-6 text-center">
-                  <span className="font-helvetica-regular text-xs uppercase tracking-wider text-text-3 font-semibold block mb-1">
-                    Importo Totale Stimato:
-                  </span>
-                  <p className="font-helvetica-bold text-4xl sm:text-5xl text-primary tracking-tight font-bold">
-                    {stimaTotale.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}
-                  </p>
-                  <span className="text-[10px] text-text-3 font-mono block mt-2">IVA Esclusa • Capitolato completo forniture</span>
-                </div>
-              </div>
-
-              <div className="space-y-3">
-                <button
-                  onClick={() => onAddToCart(generateCapitolatoProduct())}
-                  className="w-full bg-primary text-white py-4 rounded-full text-xs font-mono font-bold tracking-wider uppercase hover:bg-primary-hover transition-all flex items-center justify-center gap-2 shadow-xl hover:scale-105 duration-200"
-                >
-                  <ShoppingCart className="w-4 h-4 text-white" /> Aggiungi Capitolato al Carrello
-                </button>
-                <p className="text-[10px] text-center text-text-3 font-mono">
-                  *Preventivo indicativo non vincolante. Un nostro manager definirà le specifiche esatte.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// Process Timeline Component - Connected Organic Wave (No Box Cards)
+// Process Timeline Component in Clean Italian
 const ProcessTimeline = () => {
   const steps = [
-    { num: "01", title: "Consulenza e Audit", desc: "Mappatura dettagliata del fabbisogno aziendale con valutazione tecnica preliminare.", icon: Search },
-    { num: "02", title: "Space & Tech Design", desc: "Sviluppo plano-volumetrico e selezione apparati hardware su misura.", icon: FileText },
-    { num: "03", title: "Deploy e Collaudo", desc: "Installazione sul campo effettuata da tecnici specializzati in tempi concordati.", icon: Zap },
-    { num: "04", title: "SLA & Manutenzione", desc: "Presidio continuativo post-vendita con magazzino ricambi sempre pronto.", icon: Shield },
+    { num: "01", title: "Ascolto e consulenza", desc: "Analizziamo le necessità operative della tua azienda per proporti le soluzioni più adatte e vantaggiose.", icon: Search },
+    { num: "02", title: "Proposta su misura", desc: "Selezioniamo i prodotti migliori garantendo trasparenza sui costi e massima qualità costruttiva.", icon: Layers },
+    { num: "03", title: "Consegna e installazione", desc: "I nostri tecnici specializzati curano la consegna, il montaggio e la configurazione nei tempi concordati.", icon: Zap },
+    { num: "04", title: "Assistenza continua", desc: "Supporto post-vendita costante con ricambi sempre disponibili e risposte tempestive.", icon: Shield },
   ];
   return (
-    <section id="processo" className="py-20 md:py-28 bg-surface border-b border-border relative overflow-hidden">
+    <section id="processo" className="py-16 md:py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
-        <div className="text-center mb-20">
+        <div className="text-center mb-16 md:mb-20">
           <h2 className="font-helvetica-light text-3xl md:text-4xl lg:text-5xl font-light text-text tracking-tighter mb-4">
-            Come lavoriamo <span className="font-helvetica-regular text-text marker-underline">insieme</span>
+            Come lavoriamo <span className="font-helvetica-regular text-text marker-underline">al tuo fianco</span>
           </h2>
           <p className="font-helvetica-regular text-text-2 max-w-xl mx-auto text-base tracking-tight">
-            Un iter snello e trasparente con referenti dedicati ad ogni singola commessa.
+            Un percorso semplice e trasparente, con un referente dedicato per ogni tua esigenza.
           </p>
         </div>
 
-        {/* Connected Organic Stream */}
-        <div className="relative grid md:grid-cols-4 gap-8 pt-4">
-          {/* Connector Line */}
-          <div className="hidden md:block absolute top-16 left-10 right-10 h-0.5 border-t-2 border-dashed border-primary/40 pointer-events-none z-0" />
-
+        {/* Connected Step Cards */}
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {steps.map((step, idx) => (
-            <div key={idx} className="relative z-10 text-center space-y-4 group">
-              <div className="w-16 h-16 rounded-full bg-surface-2 border-2 border-primary flex items-center justify-center text-primary mx-auto shadow-xl group-hover:scale-110 transition-transform duration-300">
-                <step.icon className="w-7 h-7" />
+            <div key={idx} className="bg-white rounded-[24px] border border-border/80 p-6 flex flex-col justify-between hover:border-primary/50 hover:shadow-xl transition-all duration-300 shadow-professional-sm">
+              <div>
+                <div className="flex items-center justify-between mb-5">
+                  <div className="w-12 h-12 rounded-2xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary">
+                    <step.icon className="w-6 h-6" />
+                  </div>
+                  <span className="font-mono text-xs font-bold text-accent bg-accent/15 px-3 py-1 rounded-full">
+                    FASE {step.num}
+                  </span>
+                </div>
+                <h3 className="font-helvetica-regular text-lg font-semibold text-text tracking-tight mb-2">{step.title}</h3>
+                <p className="font-helvetica-regular text-xs text-text-2 leading-relaxed">{step.desc}</p>
               </div>
-              <span className="font-marker text-3xl text-primary block tracking-wider">STEP {step.num}</span>
-              <h3 className="font-helvetica-light text-xl font-light text-text tracking-tight">{step.title}</h3>
-              <p className="font-helvetica-regular text-xs text-text-2 leading-relaxed max-w-xs mx-auto">{step.desc}</p>
-              <span className="font-mono text-xs text-primary block font-medium">★ Fase verificata</span>
+              <div className="pt-4 mt-5 border-t border-border/60 flex items-center gap-1.5 text-[11px] font-mono text-primary font-medium">
+                <Check className="w-3.5 h-3.5" />
+                <span>Garanzia di qualità</span>
+              </div>
             </div>
           ))}
         </div>
@@ -638,43 +195,83 @@ const ProcessTimeline = () => {
   );
 };
 
-// Stats Section Component - Giant Expressive Typography Statement Badges (No Box Enclosures)
+// Compliance Section in Clean Italian
+const ComplianceSection = () => {
+  const certs = [
+    { title: "Sicurezza e protezione dati", badge: "ISO/IEC 27001", desc: "Sistemi informatici e apparati di rete conformi ai più rigorosi standard europei di riservatezza." },
+    { title: "Ergonomia certificata", badge: "UNI EN 1335", desc: "Sedute e arredi testati per garantire salute posturale, comfort prolungato e sicurezza sul lavoro." },
+    { title: "Qualità del servizio", badge: "ISO 9001:2015", desc: "Processi di fornitura, controllo qualità e assistenza post-vendita costantemente monitorati." },
+    { title: "Norme igienico-sanitarie", badge: "CE & HACCP", desc: "Attrezzature di cottura, refrigerazione e lavaggio in acciaio inossidabile ad uso alimentare certificato." },
+  ];
+
+  return (
+    <section id="certificazioni" className="py-16 md:py-24 bg-white relative overflow-hidden">
+      <div className="max-w-7xl mx-auto px-5 md:px-8">
+        <div className="text-center mb-16">
+          <h2 className="font-helvetica-light text-3xl md:text-4xl font-light text-text tracking-tighter mb-4">
+            Conformità e certificazioni <span className="font-helvetica-regular text-text marker-underline">europee</span>
+          </h2>
+          <p className="font-helvetica-regular text-text-2 max-w-xl mx-auto text-base tracking-tight">
+            Tutti i prodotti e gli impianti rispettano le normative vigenti in materia di sicurezza, igiene ed ergonomia.
+          </p>
+        </div>
+        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {certs.map((c, i) => (
+            <div key={i} className="p-6 rounded-[24px] bg-white border border-border/80 flex flex-col justify-between hover:border-primary/50 hover:shadow-xl transition-all duration-300 shadow-professional-sm">
+              <div>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-[11px] font-mono font-semibold text-primary bg-primary/10 border border-primary/20 px-3 py-1 rounded-full">
+                    {c.badge}
+                  </span>
+                  <ShieldCheck className="w-5 h-5 text-primary" />
+                </div>
+                <h3 className="font-helvetica-regular text-base font-semibold text-text tracking-tight mb-2">{c.title}</h3>
+                <p className="font-helvetica-regular text-xs text-text-2 leading-relaxed">{c.desc}</p>
+              </div>
+              <div className="pt-4 mt-5 border-t border-border/60 text-[11px] font-mono text-text-3">
+                Conforme agli standard UE
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// Stats Section Component
 const StatsSection = () => {
   const stats = [
-    { value: "500+", label: "Aziende Clienti Servite", note: "★ Accreditati su tutto il territorio nazionale", icon: Laptop },
-    { value: "15 Anni", label: "Esperienza nel Settore", note: "Dal 2011 partner unico per forniture", icon: Calendar },
-    { value: "99.8%", label: "Uptime Hardware Garantito", note: "⚡ Zero tempi morti aziendali", icon: Shield },
-    { value: "2 Ore", label: "Tempo Medio Risposta SLA", note: "★ Presidio H24 dedicato", icon: Zap },
+    { value: "500+", label: "Aziende clienti servite", note: "Presenza su tutto il territorio nazionale", icon: Laptop },
+    { value: "15 anni", label: "Di esperienza", note: "Partner unico per le forniture aziendali", icon: Calendar },
+    { value: "99%", label: "Ordini consegnati nei tempi", note: "Puntualità ed efficienza logistica", icon: Clock },
+    { value: "24h", label: "Tempo medio di risposta", note: "Assistenza tecnica e commerciale dedicata", icon: Zap },
   ];
   return (
-    <section id="risultati" className="py-20 md:py-32 bg-surface-2 border-b border-border relative overflow-hidden">
+    <section id="risultati" className="py-16 md:py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
-        <div className="text-center mb-20">
+        <div className="text-center mb-16">
           <h2 className="font-helvetica-light text-3xl md:text-4xl lg:text-5xl font-light text-text tracking-tighter mb-4">
             I numeri della nostra <span className="font-helvetica-regular text-text marker-underline">affidabilità</span>
           </h2>
           <p className="font-helvetica-regular text-text-2 max-w-xl mx-auto text-base tracking-tight">
-            Dati trasparenti che confermano l'eccellenza operativa di B2B Group.
+            Dati concreti che testimoniano la qualità del nostro lavoro e la soddisfazione dei nostri clienti.
           </p>
         </div>
 
-        {/* Giant Expressive Statement Grid - Zero Rigid Card Boxes */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {stats.map((stat, idx) => (
-            <div key={idx} className="relative text-center group">
-              {/* Radial Ambient Blur */}
-              <div className="w-32 h-32 bg-primary/10 rounded-full blur-2xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
-
-              <div className="w-14 h-14 rounded-full bg-primary/20 border border-primary/40 flex items-center justify-center mx-auto mb-4 text-primary shadow-inner group-hover:scale-110 transition-transform">
-                <stat.icon className="w-7 h-7" />
+            <div key={idx} className="bg-white p-6 rounded-2xl border border-border text-center shadow-professional-sm hover:border-primary/40 transition-colors">
+              <div className="w-12 h-12 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center mx-auto mb-4 text-primary">
+                <stat.icon className="w-6 h-6" />
               </div>
-              <div className="font-marker text-5xl lg:text-7xl text-primary tracking-wider mb-2 animate-pulse-glow">
+              <div className="font-helvetica-light text-4xl lg:text-5xl text-primary font-normal tracking-tight mb-2">
                 {stat.value}
               </div>
-              <div className="font-helvetica-regular text-sm text-text font-medium tracking-tight uppercase mb-2">
+              <div className="font-helvetica-regular text-sm text-text font-medium tracking-tight mb-1">
                 {stat.label}
               </div>
-              <span className="font-mono text-xs text-primary font-medium block">
+              <span className="font-helvetica-regular text-xs text-text-3 block">
                 {stat.note}
               </span>
             </div>
@@ -685,148 +282,18 @@ const StatsSection = () => {
   );
 };
 
-// Compliance and Engineering Matrix - Organic Floating Shields
-const ComplianceSection = () => {
-  const certs = [
-    { title: "ISO/IEC 27001", badge: "CYBERSECURITY", desc: "Standard globale per la sicurezza delle informazioni e gestione dati enterprise." },
-    { title: "UNI EN 1335", badge: "ERGONOMIA", desc: "Certificazione di ergonomia e sicurezza posturale per arredi direzionali ed operativi." },
-    { title: "ISO 9001:2015", badge: "QUALITÀ SERVIZIO", desc: "Sistema di gestione della qualità per processi di fornitura e supporto post-vendita." },
-    { title: "CE & HACCP HORECA", badge: "CONFORMITÀ CIBO", desc: "Standard normativi europei per impianti di cottura, refrigerazione e sanificazione." },
-  ];
-
-  return (
-    <section className="py-20 bg-surface border-b border-border relative overflow-hidden">
-      <div className="max-w-7xl mx-auto px-5 md:px-8">
-        <div className="text-center mb-16">
-          <h2 className="font-helvetica-light text-3xl md:text-4xl font-light text-text tracking-tighter mb-4">
-            Massima conformità ai <span className="font-helvetica-regular text-text marker-underline">standard europei</span>
-          </h2>
-          <p className="font-helvetica-regular text-text-2 max-w-xl mx-auto text-base tracking-tight">
-            Tutti gli impianti, arredi e soluzioni IT rispettano i più elevati parametri normativi della Comunità Europea.
-          </p>
-        </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {certs.map((c, i) => (
-            <div key={i} className="p-6 rounded-3xl bg-surface-2/80 border border-primary/20 flex flex-col justify-between hover:border-primary transition-all shadow-xl">
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-[10px] font-marker text-primary bg-primary/20 border border-primary/40 px-3 py-1 rounded-full uppercase font-bold">
-                    {c.badge}
-                  </span>
-                  <ShieldCheck className="w-5 h-5 text-primary" />
-                </div>
-                <h3 className="font-helvetica-light text-xl font-light text-text tracking-tight mb-2">{c.title}</h3>
-                <p className="font-helvetica-regular text-xs text-text-2 leading-relaxed tracking-tight">{c.desc}</p>
-              </div>
-              <span className="font-mono text-xs text-primary mt-4 block font-medium">★ Conforme UE</span>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// Image-Free Division Catalog Cards Section - Asymmetric Organic Division Canvas
-const CatalogoSettori = ({ onNavigateToEcommerce }: { onNavigateToEcommerce?: () => void }) => {
-  const cataloghi = [
-    {
-      title: "Informatica & Networking Enterprise",
-      code: "DIV-IT",
-      itemsCount: "480+ Apparati",
-      desc: "Server rack, Workstation ad alte prestazioni, Notebook aziendali, Firewall e periferiche professionali.",
-      icon: Cpu,
-      meta: ["Intel Core i5/i7/i9", "SSD NVMe Gen4", "Wi-Fi 6E & 10GbE"]
-    },
-    {
-      title: "Arredo Direzionale & Operativo",
-      code: "DIV-AR",
-      itemsCount: "320+ Modelli",
-      desc: "Scrivanie regolabili in altezza, sedute ergonomiche EN-1335, pareti divisorie e moduli reception.",
-      icon: Chair,
-      meta: ["Ergonomia Certificata", "Space Planning 3D", "Legni & Metalli Premium"]
-    },
-    {
-      title: "Attrezzature Horeca & Ristorazione",
-      code: "DIV-HO",
-      itemsCount: "210+ Impianti",
-      desc: "Forni industriali, banchi frigoriferi refrigerati, macchine per gelato, fry-top e cuocipasta acciai inossidabili.",
-      icon: UtensilsCrossed,
-      meta: ["Acciaio Inox AISI 304", "Classe Energetica A+++", "HACCP Approved"]
-    },
-  ];
-
-  return (
-    <section id="catalogo" className="py-20 md:py-28 bg-surface-2 border-b border-border">
-      <div className="max-w-7xl mx-auto px-5 md:px-8">
-        <div className="text-center mb-16">
-          <h2 className="font-helvetica-light text-3xl md:text-4xl lg:text-5xl font-light text-text tracking-tighter mb-4">
-            Divisioni operative <span className="font-helvetica-regular text-text marker-underline">disponibili</span>
-          </h2>
-          <p className="font-helvetica-regular text-text-2 max-w-xl mx-auto text-base tracking-tight">
-            Accedi direttamente al listino prezzi e componi il tuo ordine aziendale.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-8">
-          {cataloghi.map((cat, idx) => (
-            <div
-              key={idx}
-              className="group bg-surface/90 border border-primary/20 rounded-3xl p-8 flex flex-col justify-between hover:border-primary transition-all cursor-pointer shadow-xl hover:scale-105 duration-300"
-              onClick={onNavigateToEcommerce}
-            >
-              <div>
-                <div className="flex items-center justify-between mb-6">
-                  <div className="w-14 h-14 rounded-2xl bg-primary/20 border border-primary/40 flex items-center justify-center text-primary group-hover:scale-110 transition-transform">
-                    <cat.icon className="w-7 h-7 text-primary" />
-                  </div>
-                  <div className="text-right">
-                    <span className="font-helvetica-bold text-xl text-primary font-semibold block">{cat.itemsCount}</span>
-                  </div>
-                </div>
-
-                <h3 className="font-helvetica-light text-2xl font-light text-text tracking-tight mb-3 group-hover:text-primary transition-colors">
-                  {cat.title}
-                </h3>
-                <p className="font-helvetica-regular text-xs text-text-2 leading-relaxed mb-6 tracking-tight">
-                  {cat.desc}
-                </p>
-
-                <div className="flex flex-wrap gap-2 mb-6">
-                  {cat.meta.map((m, i) => (
-                    <span key={i} className="text-[10px] font-mono text-text-2 bg-surface-2 border border-border/80 px-2.5 py-1 rounded-full">
-                      {m}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="pt-4 border-t border-border/80 flex items-center justify-between">
-                <span className="font-mono text-xs text-primary font-bold uppercase tracking-wider group-hover:underline">
-                  Esplora Divisione →
-                </span>
-                <span className="font-mono text-xs text-primary">In pronta consegna</span>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
-};
-
-// FAQ Section - Organic Fluid Accordion
+// FAQ Section
 const FaqItem = ({ q, a }: { q: string; a: string }) => {
   const [open, setOpen] = useState(false);
   return (
-    <div className="bg-surface-2/80 border border-primary/20 rounded-2xl transition-all duration-300 hover:border-primary/50">
+    <div className="bg-white rounded-2xl border border-border transition-all duration-200 hover:border-primary/40 shadow-professional-sm">
       <button onClick={() => setOpen(!open)} className="w-full flex items-center justify-between gap-4 p-5 text-left">
         <span className="font-helvetica-regular text-base font-normal text-text tracking-tight">{q}</span>
-        <ChevronLeft className={`w-5 h-5 text-primary transition-transform duration-300 ${open ? '-rotate-90' : ''}`} />
+        <ChevronLeft className={`w-5 h-5 text-primary shrink-0 transition-transform duration-300 ${open ? '-rotate-90' : ''}`} />
       </button>
-      <div className={`overflow-hidden transition-all duration-300 ${open ? 'max-h-40 opacity-100' : 'max-h-0 opacity-0'}`}>
+      <div className={`overflow-hidden transition-all duration-300 ${open ? 'max-h-48 opacity-100' : 'max-h-0 opacity-0'}`}>
         <div className="px-5 pb-5 pt-1 border-t border-border/60">
-          <p className="font-helvetica-regular text-text-2 text-xs leading-relaxed tracking-tight">{a}</p>
+          <p className="font-helvetica-regular text-text-2 text-xs leading-relaxed">{a}</p>
         </div>
       </div>
     </div>
@@ -835,21 +302,33 @@ const FaqItem = ({ q, a }: { q: string; a: string }) => {
 
 const FaqSection = () => {
   const items = [
-    { q: "Quali garanzie offrite sulle forniture IT ed arredi?", a: "Tutti i prodotti godono di garanzia ufficiale enterprise fino a 36 mesi con sostituzione anticipata in caso di guasto." },
-    { q: "Come funziona la fatturazione elettronica e gli accordi quadro?", a: "Emettiamo fatturazione elettronica con pagamento dilazionato per aziende con partita IVA ed enti accreditati." },
-    { q: "Quali sono i tempi medi di spedizione sul territorio nazionale?", a: "I beni a magazzino vengono spediti entro 24-48 ore. Capitolati su misura o arredi personalizzati richiedono 7-15 giorni." },
-    { q: "È possibile integrare il vostro catalogo nei nostri sistemi procurement?", a: "Sì, supportiamo l'integrazione dati in formato JSON, CSV o flussi EDI per piattaforme aziendali di e-procurement." },
+    {
+      q: "Quali garanzie offrite sui prodotti informatici e sugli arredi?",
+      a: "Tutti i prodotti dispongono della garanzia ufficiale del produttore fino a 36 mesi, con supporto tecnico diretto in caso di anomalie o necessità di sostituzione."
+    },
+    {
+      q: "Come funzionano la fatturazione elettronica e i termini di pagamento?",
+      a: "Emettiamo fatturazione elettronica standard. Per le aziende con partita IVA offriamo modalità di pagamento concordate, inclusi bonifici a scadenza e ricevute bancarie per ordini continuativi."
+    },
+    {
+      q: "Quali sono i tempi medi di consegna sul territorio nazionale?",
+      a: "I prodotti a magazzino vengono spediti entro 24-48 ore lavorative. Per arredi su misura o forniture complesse concordiamo tempistiche certe in fase di preventivo."
+    },
+    {
+      q: "È possibile richiedere una quotazione personalizzata per volumi consistenti?",
+      a: "Certamente. Il nostro ufficio commerciale elabora preventivi su misura con listini riservati in base alle quantità e alle esigenze specifiche dell'azienda."
+    },
   ];
   return (
-    <section className="py-20 md:py-28 bg-surface border-b border-border relative overflow-hidden">
-      <div className="max-w-4xl mx-auto px-5 md:px-8 relative z-10">
+    <section id="faq" className="py-16 md:py-24 bg-white relative overflow-hidden">
+      <div className="max-w-3xl mx-auto px-5 md:px-8 relative z-10">
         <div className="text-center mb-16">
-          <h2 className="font-helvetica-light text-3xl md:text-4xl lg:text-5xl font-light text-text tracking-tighter mb-4">
-            Chiarezza e trasparenza <span className="font-helvetica-regular text-text marker-underline">operativa</span>
+          <h2 className="font-helvetica-light text-3xl md:text-4xl font-light text-text tracking-tighter mb-4">
+            Domande <span className="font-helvetica-regular text-text marker-underline">frequenti</span>
           </h2>
-          <p className="font-helvetica-regular text-text-2 text-base tracking-tight">Risposte dirette alle principali esigenze dei nostri partner B2B.</p>
+          <p className="font-helvetica-regular text-text-2 text-base tracking-tight">Risposte chiare alle domande più comuni sulle forniture aziendali.</p>
         </div>
-        <div className="space-y-4">
+        <div className="space-y-3.5">
           {items.map((it, i) => (
             <FaqItem key={i} q={it.q} a={it.a} />
           ))}
@@ -859,38 +338,42 @@ const FaqSection = () => {
   );
 };
 
-// CTA Section - Fluid Organic Studio Banner
+// CTA Section in Clean Italian
 const CTASection = () => {
   return (
-    <section id="contatti" className="py-20 md:py-32 bg-surface-2 border-b border-border relative overflow-hidden">
+    <section id="contatti" className="py-16 md:py-24 bg-white relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-5 md:px-8 relative z-10">
-        <div className="p-10 md:p-20 text-center rounded-3xl bg-surface/90 border border-primary/30 shadow-2xl relative">
+        <div className="p-8 sm:p-14 md:p-16 text-center rounded-3xl bg-white border border-border shadow-professional relative">
           <div className="w-48 h-48 bg-primary/10 rounded-full blur-3xl absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none" />
 
-          <h2 className="font-helvetica-light text-3xl md:text-5xl lg:text-6xl font-light text-text tracking-tighter mb-6 leading-tight">
-            Hai una richiesta di <span className="font-helvetica-regular text-text marker-underline">capitolato aziendale</span>?
+          <h2 className="font-helvetica-light text-3xl sm:text-4xl md:text-5xl font-light text-text tracking-tighter mb-5 leading-tight">
+            Vuoi maggiori informazioni o un <span className="font-helvetica-regular text-text marker-underline">preventivo personalizzato</span>?
           </h2>
-          <p className="font-helvetica-regular text-text-2 max-w-2xl mx-auto text-base md:text-lg mb-10 tracking-tight leading-relaxed">
-            Un Service Manager dedicato risponderà con un'offerta economica personalizzata in meno di 24 ore.
+          <p className="font-helvetica-regular text-text-2 max-w-2xl mx-auto text-base md:text-lg mb-8 tracking-tight leading-relaxed">
+            Un nostro consulente commerciale ti risponderà con una proposta dettagliata entro 24 ore lavorative.
           </p>
-          <div className="flex flex-col sm:flex-row gap-5 justify-center relative z-10">
+          <div className="flex flex-col sm:flex-row gap-4 justify-center relative z-10">
             <a
               href="mailto:info@b2b-group.it"
-              className="bg-primary text-white px-10 py-4 rounded-full text-xs font-mono font-bold tracking-wider uppercase hover:bg-primary-hover transition-all inline-flex items-center justify-center gap-2 shadow-xl hover:scale-105 duration-200"
+              className="bg-primary text-white px-8 py-3.5 rounded-full text-sm font-semibold hover:bg-primary-hover active:scale-[0.98] transition-all inline-flex items-center justify-center gap-2 shadow-md hover:shadow-lg group"
             >
-              <Mail className="w-4 h-4 text-white" /> Scrivici una Mail
+              <Mail className="w-4 h-4 text-white" />
+              <span>Scrivici un'email</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </a>
             <a
               href="https://wa.me/393393508878"
               target="_blank"
               rel="noopener noreferrer"
-              className="bg-surface-2 text-text border border-primary/40 px-10 py-4 rounded-full text-xs font-mono font-bold tracking-wider uppercase hover:border-primary transition-all inline-flex items-center justify-center gap-2 shadow-lg hover:scale-105 duration-200"
+              className="bg-white text-text border border-border px-8 py-3.5 rounded-full text-sm font-semibold hover:border-primary/40 hover:bg-surface-2 transition-all inline-flex items-center justify-center gap-2 group"
             >
-              <Phone className="w-4 h-4 text-primary" /> WhatsApp Diretta H24
+              <Phone className="w-4 h-4 text-primary" />
+              <span>Contattaci su WhatsApp</span>
+              <ArrowRight className="w-4 h-4 text-text-3 transition-transform group-hover:translate-x-1 group-hover:text-primary" />
             </a>
           </div>
-          <span className="font-mono text-xs text-primary block mt-8 font-medium">
-            ★ Risposta entro 24 ore lavorative
+          <span className="font-mono text-xs text-text-3 block mt-6">
+            Risposta entro 24 ore lavorative
           </span>
         </div>
       </div>
@@ -898,26 +381,26 @@ const CTASection = () => {
   );
 };
 
-// Contact Info Footer Banner - Asymmetric Organic Floating Pills
+// Contact Info Section
 const ContactInfoSection = () => {
   const items = [
-    { icon: MapPin, title: "Sede Operativa", text: "Via Nazionale delle Puglie 7, Casalnuovo di Napoli (NA)" },
-    { icon: Phone, title: "Telefono & Supporto", text: "+39 339 350 8878 • Presidio Tecnico H24" },
-    { icon: MapPin, title: "Sede Legale", text: "Via San Lazzaro 55, Frignano (CE)" },
-    { icon: Calendar, title: "Orari Operativi", text: "Lun-Ven: 08:00-18:00, Sab: 09:00-13:00" },
+    { icon: MapPin, title: "Sede operativa", text: "Via Nazionale delle Puglie 7, Casalnuovo di Napoli (NA)" },
+    { icon: Phone, title: "Telefono e supporto", text: "+39 339 350 8878 • Assistenza telefonica" },
+    { icon: MapPin, title: "Sede legale", text: "Via San Lazzaro 55, Frignano (CE)" },
+    { icon: Calendar, title: "Orari di apertura", text: "Lun-Ven: 08:00-18:00, Sab: 09:00-13:00" },
   ];
   return (
-    <section className="py-14 bg-surface border-b border-border relative">
+    <section className="py-12 md:py-16 bg-white relative">
       <div className="max-w-7xl mx-auto px-5 md:px-8">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
           {items.map((item, idx) => (
-            <div key={idx} className="bg-surface-2/80 border border-primary/20 rounded-2xl p-5 flex items-start gap-4 shadow-lg hover:border-primary/50 transition-colors">
-              <div className="w-10 h-10 bg-primary/20 border border-primary/40 rounded-xl flex items-center justify-center shrink-0 text-primary">
+            <div key={idx} className="bg-white border border-border rounded-2xl p-5 flex items-start gap-4 shadow-professional-sm">
+              <div className="w-10 h-10 bg-primary/10 border border-primary/20 rounded-xl flex items-center justify-center shrink-0 text-primary">
                 <item.icon className="w-5 h-5" />
               </div>
               <div>
-                <h4 className="font-helvetica-light text-base font-light text-text tracking-tight mb-1">{item.title}</h4>
-                <p className="font-helvetica-regular text-xs text-text-2 leading-relaxed tracking-tight">{item.text}</p>
+                <h4 className="font-helvetica-regular text-sm font-medium text-text tracking-tight mb-1">{item.title}</h4>
+                <p className="font-helvetica-regular text-xs text-text-2 leading-relaxed">{item.text}</p>
               </div>
             </div>
           ))}
@@ -927,31 +410,32 @@ const ContactInfoSection = () => {
   );
 };
 
-// Clean Monochrome Footer
+// Footer in Clean Professional Italian
 const Footer = () => {
   return (
-    <footer className="bg-surface pt-14 pb-8 text-text-2 font-sans">
+    <footer className="bg-white pt-14 pb-8 text-text-2 font-sans">
       <div className="max-w-7xl mx-auto px-5 md:px-8">
-        <div className="grid md:grid-cols-4 gap-10 border-b border-border pb-12 mb-8">
+        <div className="grid md:grid-cols-4 gap-10 pb-12 mb-8">
           <div className="md:col-span-2">
             <div className="flex items-center gap-2 mb-4">
-              <span className="w-2.5 h-2.5 rounded-full bg-primary" />
-              <span className="font-helvetica-light text-2xl font-light tracking-tighter text-text">
-                B2B <span className="font-helvetica-regular font-normal text-text-3">GROUP</span>
-              </span>
+              <img
+                src="/images/logo/logodef.svg"
+                alt="B2B Group"
+                className="h-10 w-auto object-contain"
+              />
             </div>
             <p className="font-helvetica-regular text-xs text-text-3 leading-relaxed max-w-sm tracking-tight mb-4">
-              Infrastruttura globale, fornitura hardware enterprise, arredo direzionale ed impianti alimentari per la scalabilità del tuo business.
+              Forniture per aziende, attrezzature professionali per la ristorazione, arredo per ufficio e materiale di consumo.
             </p>
-            <p className="font-mono text-[10px] text-text-4">P.IVA 09292831210 • REG. IMPRESE CASERTA</p>
+            <p className="font-mono text-[11px] text-text-4">P.IVA 09292831210 • REGISTRO IMPRESE CASERTA</p>
           </div>
           <div>
-            <h4 className="font-mono text-xs font-bold text-text mb-4 uppercase tracking-wider">DIVISIONI</h4>
+            <h4 className="font-mono text-xs font-bold text-text mb-4 uppercase tracking-wider">SETTORI</h4>
             <ul className="space-y-2.5 text-xs font-helvetica-regular text-text-3">
-              <li className="hover:text-text transition-colors cursor-pointer">Informatica & Cloud Core</li>
-              <li className="hover:text-text transition-colors cursor-pointer">Arredo Operativo EN-1335</li>
-              <li className="hover:text-text transition-colors cursor-pointer">Impianti Horeca & Cibo</li>
-              <li className="hover:text-text transition-colors cursor-pointer">Forniture Consumabili Office</li>
+              <li className="hover:text-text transition-colors cursor-pointer">Informatica e reti aziendali</li>
+              <li className="hover:text-text transition-colors cursor-pointer">Arredo per ufficio e postazioni</li>
+              <li className="hover:text-text transition-colors cursor-pointer">Attrezzature per ristorazione e bar</li>
+              <li className="hover:text-text transition-colors cursor-pointer">Forniture per ufficio e cancelleria</li>
             </ul>
           </div>
           <div>
@@ -965,10 +449,10 @@ const Footer = () => {
         </div>
         <div className="flex flex-col md:flex-row justify-between items-center text-xs text-text-3 font-mono gap-4">
           <p>&copy; {new Date().getFullYear()} B2B GROUP SRLS. TUTTI I DIRITTI RISERVATI.</p>
-          <div className="flex gap-6 text-[11px]">
-            <span className="hover:text-text transition-colors cursor-pointer">Privacy Policy</span>
-            <span className="hover:text-text transition-colors cursor-pointer">Note Legali</span>
-            <span className="hover:text-text transition-colors cursor-pointer">Certificazioni ISO</span>
+          <div className="flex gap-6">
+            <span className="hover:text-text cursor-pointer transition-colors">Privacy Policy</span>
+            <span className="hover:text-text cursor-pointer transition-colors">Termini di Servizio</span>
+            <span className="hover:text-text cursor-pointer transition-colors">Cookie Policy</span>
           </div>
         </div>
       </div>
@@ -976,46 +460,43 @@ const Footer = () => {
   );
 };
 
-// Vector Product Image Placeholder Component (Graceful Fallback)
+// Vector Product Image Placeholder Component
 const VectorProductBadge = ({ nome, catalogo }: { nome: string; catalogo: string }) => {
   const nameLower = nome.toLowerCase();
 
   let IconComponent = Package;
-  let subTag = "EQUIPMENT";
+  let subTag = "PRODOTTO";
 
   if (nameLower.includes("notebook") || nameLower.includes("laptop") || nameLower.includes("macbook")) {
     IconComponent = Laptop;
-    subTag = "PORTABILE";
+    subTag = "PORTATILE";
   } else if (nameLower.includes("desktop") || nameLower.includes("imac") || nameLower.includes("mini pc") || nameLower.includes("veriton")) {
     IconComponent = Cpu;
-    subTag = "STATION";
+    subTag = "COMPUTER";
   } else if (nameLower.includes("stampante") || nameLower.includes("inkjet") || nameLower.includes("laser")) {
     IconComponent = Printer;
-    subTag = "PRINTING";
+    subTag = "STAMPANTE";
   } else if (nameLower.includes("mouse") || nameLower.includes("tastiera")) {
     IconComponent = Mouse;
-    subTag = "PERIFERICA";
+    subTag = "ACCESSORIO";
   } else if (nameLower.includes("monitor") || nameLower.includes("display")) {
     IconComponent = Monitor;
-    subTag = "DISPLAY 4K";
+    subTag = "SCHERMO";
   } else if (catalogo === 'arredo' || nameLower.includes("sedia") || nameLower.includes("tavolo") || nameLower.includes("scrivania")) {
     IconComponent = Chair;
     subTag = "ARREDO";
   } else if (catalogo === 'alimentare' || nameLower.includes("forno") || nameLower.includes("friggitrice") || nameLower.includes("banco") || nameLower.includes("frigo")) {
     IconComponent = UtensilsCrossed;
-    subTag = "HORECA TECH";
+    subTag = "RISTORAZIONE";
   }
 
   return (
-    <div className="w-full h-full min-h-[140px] bg-gradient-to-br from-surface-3 via-surface-2 to-surface flex flex-col items-center justify-center p-4 relative overflow-hidden group">
-      <div className="absolute top-2 left-2 text-[9px] font-mono text-text-3 bg-surface border border-border px-1.5 py-0.5 rounded">
-        {subTag}
-      </div>
+    <div className="w-full h-full min-h-[140px] bg-surface-2 flex flex-col items-center justify-center p-4 relative overflow-hidden group">
       <div className="w-12 h-12 rounded-xl bg-surface border border-border flex items-center justify-center text-text mb-2 shadow-inner group-hover:border-primary/50 transition-colors">
         <IconComponent className="w-6 h-6 text-text" />
       </div>
-      <span className="text-[9px] font-mono tracking-widest text-text-3 uppercase text-center line-clamp-1">
-        B2B SPEC {subTag}
+      <span className="text-[10px] font-mono tracking-wider text-text-3 uppercase text-center line-clamp-1">
+        {subTag}
       </span>
     </div>
   );
@@ -1026,7 +507,6 @@ const getCandidateImageUrls = (imageName: string | undefined, catalogo: string):
   if (!imageName || !imageName.trim()) return [];
   const clean = imageName.trim();
 
-  // If already absolute or relative path
   if (clean.startsWith('/') || clean.startsWith('http')) {
     return [clean];
   }
@@ -1117,9 +597,9 @@ const ProductImage = ({
   }
 
   return (
-    <div className={`w-full h-full min-h-[140px] bg-surface-3/50 flex items-center justify-center p-3 relative overflow-hidden group ${className}`}>
+    <div className={`w-full h-full min-h-[140px] bg-surface-2 flex items-center justify-center p-3 relative overflow-hidden group ${className}`}>
       {!loaded && (
-        <div className="absolute inset-0 flex items-center justify-center bg-surface-3/40">
+        <div className="absolute inset-0 flex items-center justify-center bg-surface-2">
           <div className="w-5 h-5 border-2 border-primary/40 border-t-primary rounded-full animate-spin" />
         </div>
       )}
@@ -1146,7 +626,7 @@ const ProductImage = ({
   );
 };
 
-interface Product {
+export interface Product {
   id: string;
   settore?: string;
   nome: string;
@@ -1154,7 +634,7 @@ interface Product {
   immagine: string;
 }
 
-interface CartItem {
+export interface CartItem {
   product: Product;
   qty: number;
 }
@@ -1204,7 +684,7 @@ const Toast = ({ message, onClose }: { message: string; onClose: () => void }) =
     return () => clearTimeout(t);
   }, [message]);
   return (
-    <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] bg-surface-2 text-text border border-border px-6 py-3 rounded-xl shadow-professional-xl text-xs font-mono flex items-center gap-2">
+    <div className="fixed top-24 left-1/2 -translate-x-1/2 z-[100] bg-surface text-text border border-border px-6 py-3 rounded-xl shadow-professional-xl text-xs font-mono flex items-center gap-2">
       <CheckCircle className="w-4 h-4 text-primary" />
       {message}
     </div>
@@ -1230,20 +710,24 @@ const EcommerceHeader = ({
       <button
         onClick={onBack}
         className="shrink-0 w-10 h-10 flex items-center justify-center rounded-xl text-text-2 hover:text-text hover:bg-surface-2 border border-border transition-colors"
+        aria-label="Torna indietro"
       >
         <ChevronLeft className="w-5 h-5" />
       </button>
 
       <div className="flex items-center gap-2 hidden md:flex shrink-0">
-        <span className="w-2 h-2 rounded-full bg-primary" />
-        <span className="font-helvetica-light text-lg font-light text-text">B2B <span className="text-text-3 font-normal">STORE</span></span>
+        <img
+          src="/images/logo/logodef.svg"
+          alt="B2B Group"
+          className="h-8 w-auto object-contain"
+        />
       </div>
 
       <div className="flex-1 relative max-w-md mx-auto">
         <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-text-3" />
         <input
           type="text"
-          placeholder="Cerca apparato, arredo o codice..."
+          placeholder="Cerca prodotto, codice o marca..."
           value={search}
           onChange={e => onSearchChange(e.target.value)}
           className="w-full pl-10 pr-4 py-2 bg-surface-2 border border-border rounded-xl text-xs font-helvetica-regular text-text placeholder:text-text-3 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all"
@@ -1252,12 +736,12 @@ const EcommerceHeader = ({
 
       <button
         onClick={onOpenCart}
-        className="relative shrink-0 px-4 py-2 rounded-xl bg-primary text-white font-mono text-xs font-bold uppercase flex items-center gap-2 shadow-md hover:bg-primary-hover transition-all"
+        className="relative shrink-0 px-5 py-2.5 rounded-full bg-primary text-white text-xs font-semibold flex items-center gap-2 shadow-md hover:bg-primary-hover active:scale-[0.98] transition-all"
       >
         <ShoppingCart className="w-4 h-4 text-white" />
         <span className="hidden sm:inline">Carrello</span>
         {cartCount > 0 && (
-          <span className="w-5 h-5 bg-white text-primary text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
+          <span className="w-5 h-5 bg-accent text-text text-[10px] font-bold rounded-full flex items-center justify-center shadow-sm">
             {cartCount}
           </span>
         )}
@@ -1277,15 +761,15 @@ const CategoryBar = ({
 }) => (
   <div className="sticky top-16 z-40 bg-surface/95 backdrop-blur-xl border-b border-border">
     <div className="max-w-7xl mx-auto px-4 md:px-6">
-      <div className="flex gap-2 py-3 overflow-x-auto scrollbar-hide">
+      <div className="flex gap-2.5 py-3 overflow-x-auto scrollbar-hide">
         {categories.map(c => (
           <button
             key={c.key}
             onClick={() => onSelect(c.key)}
-            className={`shrink-0 px-5 py-2 rounded-xl text-xs font-mono font-bold uppercase transition-all duration-200 border ${
+            className={`shrink-0 px-5 py-2.5 rounded-full text-xs font-semibold transition-all duration-200 border ${
               active === c.key
                 ? 'bg-primary text-white border-primary shadow-sm'
-                : 'bg-surface-2 text-text-3 border-border hover:text-text hover:bg-surface-3'
+                : 'bg-white text-text-2 border-border hover:text-text hover:bg-surface-2'
             }`}
           >
             {c.label}
@@ -1296,7 +780,7 @@ const CategoryBar = ({
   </div>
 );
 
-// Product Card with Real Image Presentation and Fallback
+// Product Card in Clean Italian
 const ProductCard = ({
   product,
   catalogo,
@@ -1306,39 +790,40 @@ const ProductCard = ({
   catalogo: string;
   onAdd: (p: Product) => void;
 }) => (
-  <div className="group bg-surface-2 rounded-2xl border border-border overflow-hidden hover:border-primary/50 transition-all flex flex-col sm:flex-row items-stretch shadow-professional">
-    <div className="w-full sm:w-48 h-44 sm:h-auto shrink-0 border-b sm:border-b-0 sm:border-r border-border bg-surface-3/50 flex items-center justify-center overflow-hidden">
+  <div className="group bg-white rounded-[22px] border border-border/80 overflow-hidden hover:border-primary/50 hover:shadow-xl transition-all duration-300 flex flex-col sm:flex-row items-stretch shadow-professional-sm">
+    <div className="w-full sm:w-52 h-48 sm:h-auto shrink-0 border-b sm:border-b-0 sm:border-r border-border/60 bg-surface-2 flex items-center justify-center overflow-hidden">
       <ProductImage product={product} catalogo={catalogo} />
     </div>
 
     <div className="flex-1 flex flex-col justify-between p-5 min-w-0">
       <div>
-        <div className="flex items-center justify-between gap-2 mb-1.5">
-          <span className="text-[9px] font-mono text-text-3 uppercase tracking-wider">
-            SPECS CERTIFICATE • B2B
+        <div className="flex items-center justify-between gap-2 mb-2">
+          <span className="text-[10px] font-mono text-text-3 uppercase tracking-wider">
+            FORNITURA AZIENDALE
           </span>
-          <span className="text-[9px] font-mono text-primary bg-primary/10 border border-primary/20 px-2 py-0.5 rounded">
-            PRONTA CONSEGNA
+          <span className="text-[10px] font-mono font-semibold text-primary bg-primary/10 border border-primary/20 px-2.5 py-0.5 rounded-full">
+            Disponibile
           </span>
         </div>
-        <h3 className="font-helvetica-light text-base md:text-lg font-light text-text leading-snug line-clamp-2 mb-2 group-hover:text-primary transition-colors tracking-tight">
+        <h3 className="font-helvetica-regular text-base md:text-lg font-medium text-text leading-snug line-clamp-2 mb-2 group-hover:text-primary transition-colors tracking-tight">
           {product.nome}
         </h3>
       </div>
 
-      <div className="flex items-center justify-between mt-4 pt-3 border-t border-border/60">
+      <div className="flex items-center justify-between mt-4 pt-3.5 border-t border-border/60">
         <div>
-          <span className="text-[9px] font-mono text-text-3 uppercase block">PREZZO NETTO IVA ESCL.</span>
-          <p className="font-helvetica-light text-xl font-light text-primary tracking-tighter">
+          <span className="text-[10px] font-mono text-text-3 uppercase block">Prezzo netto (IVA escl.)</span>
+          <p className="font-helvetica-light text-xl font-light text-primary tracking-tight">
             {product.prezzo.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}
           </p>
         </div>
 
         <button
           onClick={() => onAdd(product)}
-          className="bg-primary text-white px-5 py-2.5 rounded-xl text-xs font-mono font-bold tracking-wider uppercase hover:bg-primary-hover active:scale-[0.97] transition-all shadow-md flex items-center gap-1.5"
+          className="bg-primary text-white px-5 py-2.5 rounded-full text-xs font-semibold hover:bg-primary-hover active:scale-[0.97] transition-all shadow-md flex items-center gap-2 group"
         >
-          <Plus className="w-3.5 h-3.5 text-white" /> Aggiungi
+          <Plus className="w-3.5 h-3.5 text-white" />
+          <span>Aggiungi</span>
         </button>
       </div>
     </div>
@@ -1346,10 +831,10 @@ const ProductCard = ({
 );
 
 const PAYMENT_METHODS = [
-  { key: 'bonifico', label: 'Bonifico SEPA Anticipato / 30gg', desc: 'Coordinate IBAN inviate nel riepilogo PDF' },
-  { key: 'carta', label: 'Carta Aziendale (Visa / Mastercard)', desc: 'Ricevuta fiscale immediata' },
-  { key: 'assegno', label: 'Assegno Circolare / Ri.Ba.', desc: 'Per accordi quadro già stipulati' },
-  { key: 'contanti', label: 'Contanti alla Consegna', desc: 'Entro i limiti di legge vigenti' },
+  { key: 'bonifico', label: 'Bonifico bancario anticipato o a scadenza', desc: 'Coordinate bancarie indicate nel riepilogo in PDF' },
+  { key: 'carta', label: 'Carta di credito aziendale', desc: 'Fattura immediata' },
+  { key: 'riba', label: 'Ricevuta bancaria (Ri.Ba.)', desc: 'Per accordi commerciali concordati' },
+  { key: 'contrassegno', label: 'Pagamento alla consegna', desc: 'Nei limiti previsti dalla legge' },
 ];
 
 const CartNotesAndPayment = ({
@@ -1367,21 +852,21 @@ const CartNotesAndPayment = ({
 }) => (
   <div className={`space-y-4 ${compact ? 'px-4 pb-3' : ''}`}>
     <div>
-      <label className="block text-[10px] font-mono text-text-3 uppercase tracking-wider mb-1.5">
-        NOTE PER L'ORDINE O RIFERIMENTI CIG/CUP
+      <label className="block text-[11px] font-mono text-text-3 uppercase tracking-wider mb-1.5">
+        NOTE PER L'ORDINE O DATI DI FATTURAZIONE
       </label>
       <textarea
         value={notes}
         onChange={e => onNotesChange(e.target.value)}
-        placeholder="Inserire eventuali note di consegna, riferimenti ordine acquisto o P.IVA fatturazione..."
+        placeholder="Inserisci eventuali indicazioni di consegna, riferimenti ordine acquisto o Partita IVA..."
         rows={2}
         className="w-full px-3 py-2 bg-surface border border-border rounded-xl text-xs font-helvetica-regular text-text placeholder:text-text-3 focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary transition-all resize-none"
       />
     </div>
 
     <div>
-      <label className="block text-[10px] font-mono text-text-3 uppercase tracking-wider mb-2">
-        METODO DI PAGAMENTO CONCORDATO
+      <label className="block text-[11px] font-mono text-text-3 uppercase tracking-wider mb-2">
+        MODALITÀ DI PAGAMENTO PREFERITA
       </label>
       <div className="flex flex-col gap-2">
         {PAYMENT_METHODS.map(m => (
@@ -1436,11 +921,11 @@ const CartPanel = ({
   const totale = items.reduce((sum, ci) => sum + ci.product.prezzo * ci.qty, 0);
 
   return (
-    <div className={`bg-surface-2 border border-border rounded-2xl shadow-professional flex flex-col ${className}`}>
+    <div className={`bg-surface border border-border rounded-2xl shadow-professional flex flex-col ${className}`}>
       <div className="px-5 py-4 border-b border-border flex items-center justify-between shrink-0">
         <div className="flex items-center gap-2">
           <ShoppingCart className="w-4 h-4 text-primary" />
-          <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-text">CARRELLO CAPITOLATO</h2>
+          <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-text">CARRELLO FORNITURE</h2>
         </div>
         {items.length > 0 && (
           <span className="bg-primary text-white text-[10px] font-mono font-bold px-2 py-0.5 rounded-full">
@@ -1452,17 +937,17 @@ const CartPanel = ({
       <div className="flex-1 overflow-y-auto px-5 py-3 space-y-4">
         {items.length === 0 ? (
           <div className="flex flex-col items-center justify-center text-center py-12">
-            <div className="w-12 h-12 bg-surface rounded-xl border border-border flex items-center justify-center mb-3">
+            <div className="w-12 h-12 bg-surface-2 rounded-xl border border-border flex items-center justify-center mb-3">
               <ShoppingCart className="w-5 h-5 text-text-3" />
             </div>
-            <p className="text-text-3 font-mono text-xs">Carrello per fornitura vuoto</p>
+            <p className="text-text-3 font-mono text-xs">Il carrello è vuoto</p>
           </div>
         ) : (
           <>
             <ul className="space-y-2.5">
               {items.map(ci => (
-                <li key={ci.product.id} className="flex items-center gap-3 p-3 bg-surface border border-border rounded-xl">
-                  <div className="w-12 h-12 rounded-lg bg-surface-2 border border-border shrink-0 overflow-hidden flex items-center justify-center">
+                <li key={ci.product.id} className="flex items-center gap-3 p-3 bg-surface-2 border border-border rounded-xl">
+                  <div className="w-12 h-12 rounded-lg bg-surface border border-border shrink-0 overflow-hidden flex items-center justify-center">
                     <ProductImage product={ci.product} catalogo="ecommerce" className="min-h-0 !p-1" />
                   </div>
                   <div className="flex-1 min-w-0">
@@ -1471,18 +956,18 @@ const CartPanel = ({
                       <span className="text-xs font-helvetica-light font-light text-primary">
                         {(ci.product.prezzo * ci.qty).toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}
                       </span>
-                      <div className="flex items-center gap-1 bg-surface-2 border border-border rounded px-1.5 py-0.5">
-                        <button onClick={() => onUpdateQty(ci.product.id, ci.qty - 1)} className="text-text-3 hover:text-text">
+                      <div className="flex items-center gap-1 bg-surface border border-border rounded px-1.5 py-0.5">
+                        <button onClick={() => onUpdateQty(ci.product.id, ci.qty - 1)} className="text-text-3 hover:text-text" aria-label="Diminuisci quantità">
                           <Minus className="w-3 h-3" />
                         </button>
                         <span className="text-xs font-mono w-4 text-center">{ci.qty}</span>
-                        <button onClick={() => onUpdateQty(ci.product.id, ci.qty + 1)} className="text-text-3 hover:text-text">
+                        <button onClick={() => onUpdateQty(ci.product.id, ci.qty + 1)} className="text-text-3 hover:text-text" aria-label="Aumenta quantità">
                           <Plus className="w-3 h-3" />
                         </button>
                       </div>
                     </div>
                   </div>
-                  <button onClick={() => onRemove(ci.product.id)} className="text-text-3 hover:text-danger p-1">
+                  <button onClick={() => onRemove(ci.product.id)} className="text-text-3 hover:text-danger p-1" aria-label="Rimuovi prodotto">
                     <X className="w-4 h-4" />
                   </button>
                 </li>
@@ -1502,19 +987,20 @@ const CartPanel = ({
       {items.length > 0 && (
         <div className="px-5 py-4 border-t border-border shrink-0">
           <div className="flex justify-between items-center mb-3">
-            <span className="text-text-3 font-mono text-xs">TOTALE STIMATO</span>
+            <span className="text-text-3 font-mono text-xs">TOTALE NETTO</span>
             <span className="text-lg font-helvetica-light font-light text-text">
               {totale.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}
             </span>
           </div>
           <button
             onClick={onCheckout}
-            className="w-full bg-primary text-white py-3 rounded-xl font-mono text-xs font-bold uppercase hover:bg-primary-hover active:scale-[0.98] transition-all shadow-md"
+            className="w-full bg-primary text-white py-3.5 px-6 rounded-full text-sm font-semibold hover:bg-primary-hover active:scale-[0.98] transition-all shadow-md flex items-center justify-center gap-2 group"
           >
-            Procedi all'Ordine & PDF
+            <span>Riepilogo ordine e scarica PDF</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>
-          <button onClick={onClear} className="w-full mt-2 text-text-3 hover:text-danger text-[10px] font-mono uppercase text-center block">
-            Svuota Carrello
+          <button onClick={onClear} className="w-full mt-2.5 text-text-3 hover:text-danger text-xs font-medium text-center block transition-colors">
+            Svuota carrello
           </button>
         </div>
       )}
@@ -1556,16 +1042,16 @@ const CartDrawer = ({
         onClick={onClose}
       />
       <div
-        className={`fixed top-0 right-0 bottom-0 z-[70] w-[min(100vw,400px)] bg-surface-2 border-l border-border shadow-professional-xl flex flex-col transition-transform duration-300 ease-out ${
+        className={`fixed top-0 right-0 bottom-0 z-[70] w-[min(100vw,400px)] bg-surface border-l border-border shadow-professional-xl flex flex-col transition-transform duration-300 ease-out ${
           open ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
         <div className="px-5 py-4 border-b border-border flex items-center justify-between shrink-0">
           <div className="flex items-center gap-2">
             <ShoppingCart className="w-4 h-4 text-primary" />
-            <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-text">CARRELLO FORNITURA</h2>
+            <h2 className="text-xs font-mono font-bold uppercase tracking-wider text-text">CARRELLO FORNITURE</h2>
           </div>
-          <button onClick={onClose} className="p-1 text-text-3 hover:text-text">
+          <button onClick={onClose} className="p-1 text-text-3 hover:text-text" aria-label="Chiudi carrello">
             <X className="w-5 h-5" />
           </button>
         </div>
@@ -1579,8 +1065,8 @@ const CartDrawer = ({
             <>
               <ul className="space-y-2.5">
                 {items.map(ci => (
-                  <li key={ci.product.id} className="flex items-center justify-between p-3 bg-surface border border-border rounded-xl">
-                    <div className="w-10 h-10 rounded-lg bg-surface-2 border border-border shrink-0 overflow-hidden flex items-center justify-center mr-3">
+                  <li key={ci.product.id} className="flex items-center justify-between p-3 bg-surface-2 border border-border rounded-xl">
+                    <div className="w-10 h-10 rounded-lg bg-surface border border-border shrink-0 overflow-hidden flex items-center justify-center mr-3">
                       <ProductImage product={ci.product} catalogo="ecommerce" className="min-h-0 !p-1" />
                     </div>
                     <div className="min-w-0 flex-1 pr-2">
@@ -1616,19 +1102,20 @@ const CartDrawer = ({
         {items.length > 0 && (
           <div className="px-5 py-4 border-t border-border shrink-0">
             <div className="flex justify-between items-center mb-3">
-              <span className="text-text-3 font-mono text-xs">TOTALE</span>
+              <span className="text-text-3 font-mono text-xs">TOTALE NETTO</span>
               <span className="text-lg font-helvetica-light text-text">
                 {totale.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}
               </span>
             </div>
             <button
               onClick={onCheckout}
-              className="w-full bg-primary text-white py-3 rounded-xl font-mono text-xs font-bold uppercase hover:bg-primary-hover active:scale-[0.98] transition-all shadow-md"
+              className="w-full bg-primary text-white py-3.5 px-6 rounded-full text-sm font-semibold hover:bg-primary-hover active:scale-[0.98] transition-all shadow-md flex items-center justify-center gap-2 group"
             >
-              Procedi all'Ordine & PDF
+              <span>Riepilogo ordine e scarica PDF</span>
+              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
             </button>
-            <button onClick={onClear} className="w-full mt-2 text-text-3 hover:text-danger text-[10px] font-mono uppercase text-center block">
-              Svuota Carrello
+            <button onClick={onClear} className="w-full mt-2.5 text-text-3 hover:text-danger text-xs font-medium text-center block transition-colors">
+              Svuota carrello
             </button>
           </div>
         )}
@@ -1644,17 +1131,18 @@ const generateOrderNumber = () => {
 
 // Generate Clean Monochrome PDF with Petrol Green Accent Header Line
 const generatePDF = async (items: CartItem[], notes: string, paymentMethod: string, orderNumber: string) => {
+  const { jsPDF } = await import('jspdf');
   const doc = new jsPDF();
   const pageWidth = doc.internal.pageSize.getWidth();
   let y = 20;
 
   // Header block with petrol green
-  doc.setFillColor(18, 122, 114);
+  doc.setFillColor(16, 122, 114);
   doc.rect(0, 0, pageWidth, 42, 'F');
 
-  // Accent Line
-  doc.setFillColor(14, 97, 91);
-  doc.rect(0, 42, pageWidth, 2, 'F');
+  // Accent Line (apricot)
+  doc.setFillColor(246, 164, 50);
+  doc.rect(0, 42, pageWidth, 2.5, 'F');
 
   doc.setTextColor(255, 255, 255);
   doc.setFontSize(20);
@@ -1663,37 +1151,37 @@ const generatePDF = async (items: CartItem[], notes: string, paymentMethod: stri
 
   doc.setFontSize(9);
   doc.setFont('helvetica', 'normal');
-  doc.setTextColor(230, 245, 244);
-  doc.text('Infrastrutture e Forniture Enterprise per Aziende', 20, y + 12);
+  doc.setTextColor(235, 247, 246);
+  doc.text('Forniture e Attrezzature Professionali per Aziende', 20, y + 12);
 
   y = 56;
-  doc.setTextColor(15, 23, 42);
+  doc.setTextColor(17, 24, 39);
   doc.setFontSize(10);
   doc.setFont('helvetica', 'bold');
-  doc.text(`CAPITOLATO ORDINE: ${orderNumber}`, 20, y);
+  doc.text(`RIEPILOGO PREVENTIVO FORNITURA: ${orderNumber}`, 20, y);
 
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
-  doc.text(`Data Emissione: ${new Date().toLocaleDateString('it-IT')}`, 20, y + 6);
+  doc.text(`Data di emissione: ${new Date().toLocaleDateString('it-IT')}`, 20, y + 6);
 
   const pm = PAYMENT_METHODS.find(m => m.key === paymentMethod);
-  doc.text(`Metodo di Pagamento Concordato: ${pm?.label || paymentMethod}`, 20, y + 12);
+  doc.text(`Modalita di pagamento: ${pm?.label || paymentMethod}`, 20, y + 12);
 
   y += 24;
-  doc.setFillColor(241, 245, 249);
+  doc.setFillColor(243, 244, 246);
   doc.rect(20, y, pageWidth - 40, 8, 'F');
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(9);
-  doc.setTextColor(51, 65, 85);
-  doc.text('Prodotto / Descrizione', 22, y + 5.5);
+  doc.setTextColor(55, 65, 81);
+  doc.text('Descrizione prodotto', 22, y + 5.5);
   doc.text('Qta', pageWidth - 80, y + 5.5);
-  doc.text('Prezzo Unit.', pageWidth - 55, y + 5.5);
-  doc.text('Totale Netto', pageWidth - 30, y + 5.5);
+  doc.text('Prezzo unit.', pageWidth - 55, y + 5.5);
+  doc.text('Totale netto', pageWidth - 30, y + 5.5);
 
   y += 12;
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(9);
-  doc.setTextColor(30, 41, 59);
+  doc.setTextColor(31, 41, 55);
 
   const totale = items.reduce((sum, ci) => sum + ci.product.prezzo * ci.qty, 0);
 
@@ -1703,7 +1191,7 @@ const generatePDF = async (items: CartItem[], notes: string, paymentMethod: stri
       y = 20;
     }
     if (i % 2 === 0) {
-      doc.setFillColor(248, 250, 252);
+      doc.setFillColor(249, 250, 251);
       doc.rect(20, y - 4, pageWidth - 40, 8, 'F');
     }
     const name = ci.product.nome.length > 55 ? ci.product.nome.slice(0, 52) + '...' : ci.product.nome;
@@ -1715,26 +1203,26 @@ const generatePDF = async (items: CartItem[], notes: string, paymentMethod: stri
   });
 
   y += 4;
-  doc.setDrawColor(226, 232, 240);
+  doc.setDrawColor(229, 231, 235);
   doc.line(20, y, pageWidth - 20, y);
   y += 8;
 
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(12);
-  doc.setTextColor(18, 122, 114);
-  doc.text('TOTALE STIMATO FORNITURA', 20, y);
+  doc.setTextColor(16, 122, 114);
+  doc.text('TOTALE NETTO FORNITURA (IVA ESCLUSA)', 20, y);
   doc.text(totale.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' }), pageWidth - 55, y);
 
   if (notes.trim()) {
     y += 16;
     doc.setFont('helvetica', 'bold');
     doc.setFontSize(10);
-    doc.setTextColor(51, 65, 85);
-    doc.text('Note ed Eventuali Riferimenti Aziendali:', 20, y);
+    doc.setTextColor(55, 65, 81);
+    doc.text('Note e riferimenti aziendali:', 20, y);
     y += 6;
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(9);
-    doc.setTextColor(71, 85, 105);
+    doc.setTextColor(75, 85, 99);
     const lines = doc.splitTextToSize(notes, pageWidth - 40);
     doc.text(lines, 20, y);
     y += lines.length * 5;
@@ -1742,11 +1230,11 @@ const generatePDF = async (items: CartItem[], notes: string, paymentMethod: stri
 
   y += 15;
   doc.setFontSize(8);
-  doc.setTextColor(100, 116, 139);
-  doc.text('Documento generato automaticamente dal sistema B2B Group. P.IVA 09292831210', 20, y);
-  doc.text('Inviare la copia firmata a info@b2b-group.it per la presa in carico immediata.', 20, y + 5);
+  doc.setTextColor(107, 114, 128);
+  doc.text('Documento generato da B2B Group SRLS. P.IVA 09292831210', 20, y);
+  doc.text('Per confermare la richiesta, inviare una copia a info@b2b-group.it.', 20, y + 5);
 
-  doc.save(`capitolato-b2b-group-${orderNumber}.pdf`);
+  doc.save(`preventivo-b2b-group-${orderNumber}.pdf`);
 };
 
 // Order Report Page
@@ -1773,22 +1261,23 @@ const OrderReport = ({
           <button
             onClick={onBack}
             className="shrink-0 w-10 h-10 flex items-center justify-center rounded-xl text-text-2 hover:text-text hover:bg-surface-2 border border-border transition-colors"
+            aria-label="Torna al catalogo"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
           <div className="flex items-center gap-2">
             <span className="w-2 h-2 rounded-full bg-primary" />
-            <span className="font-helvetica-light text-lg font-light text-text">B2B <span className="text-text-3 font-normal">CAPITOLATO</span></span>
+            <span className="font-helvetica-light text-lg font-light text-text">B2B <span className="text-text-3 font-normal">PREVENTIVO</span></span>
           </div>
           <span className="text-xs font-mono text-text-3">{totalQty} Articoli</span>
         </div>
       </header>
 
       <main className="max-w-4xl mx-auto px-4 md:px-6 py-10">
-        <div className="bg-surface-2 rounded-2xl border border-border shadow-professional overflow-hidden mb-8">
-          <div className="bg-surface border-b border-border px-6 py-5 flex items-center justify-between">
+        <div className="bg-surface rounded-2xl border border-border shadow-professional overflow-hidden mb-8">
+          <div className="bg-surface-2 border-b border-border px-6 py-5 flex items-center justify-between">
             <div>
-              <p className="text-[10px] font-mono text-primary uppercase tracking-wider mb-1">CODICE CAPITOLATO</p>
+              <p className="text-[10px] font-mono text-primary uppercase tracking-wider mb-1">CODICE PREVENTIVO</p>
               <p className="font-helvetica-light text-2xl font-light text-text">{orderNumber}</p>
             </div>
             <div className="text-right">
@@ -1804,7 +1293,7 @@ const OrderReport = ({
                 <div key={ci.product.id} className="flex items-center justify-between py-3">
                   <div className="min-w-0 flex-1 pr-4">
                     <p className="text-sm font-helvetica-regular text-text truncate">{ci.product.nome}</p>
-                    <p className="text-xs font-mono text-text-3 mt-0.5">Qta: {ci.qty}</p>
+                    <p className="text-xs font-mono text-text-3 mt-0.5">Quantità: {ci.qty}</p>
                   </div>
                   <p className="text-sm font-helvetica-light font-light text-primary shrink-0">
                     {(ci.product.prezzo * ci.qty).toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}
@@ -1814,7 +1303,7 @@ const OrderReport = ({
             </div>
 
             <div className="flex justify-between items-center pt-2">
-              <span className="font-mono text-xs text-text-3">TOTALE PREVENTIVO STIMATO</span>
+              <span className="font-mono text-xs text-text-3">TOTALE NETTO STIMATO</span>
               <span className="font-helvetica-light text-3xl font-light text-text">
                 {totale.toLocaleString('it-IT', { style: 'currency', currency: 'EUR' })}
               </span>
@@ -1823,13 +1312,13 @@ const OrderReport = ({
         </div>
 
         <div className="grid md:grid-cols-2 gap-6 mb-8">
-          <div className="bg-surface-2 rounded-2xl border border-border p-6">
-            <h4 className="text-xs font-mono text-text-3 uppercase tracking-wider mb-2">METODO DI PAGAMENTO</h4>
+          <div className="bg-surface rounded-2xl border border-border p-6">
+            <h4 className="text-xs font-mono text-text-3 uppercase tracking-wider mb-2">MODALITÀ DI PAGAMENTO</h4>
             <p className="font-helvetica-regular text-sm text-text font-bold mb-1">{paymentLabel}</p>
-            <p className="font-mono text-[10px] text-text-3">Fatturazione elettronica standard e pagamenti concordati.</p>
+            <p className="font-mono text-[11px] text-text-3">Fatturazione elettronica standard e pagamenti concordati.</p>
           </div>
           {notes.trim() && (
-            <div className="bg-surface-2 rounded-2xl border border-border p-6">
+            <div className="bg-surface rounded-2xl border border-border p-6">
               <h4 className="text-xs font-mono text-text-3 uppercase tracking-wider mb-2">NOTE AZIENDALI</h4>
               <p className="font-helvetica-regular text-xs text-text-2 leading-relaxed whitespace-pre-wrap">{notes}</p>
             </div>
@@ -1839,15 +1328,18 @@ const OrderReport = ({
         <div className="flex flex-col sm:flex-row gap-4">
           <button
             onClick={() => generatePDF(items, notes, paymentMethod, orderNumber)}
-            className="flex-1 bg-primary text-white py-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider hover:bg-primary-hover active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-professional"
+            className="flex-1 bg-primary text-white py-3.5 px-6 rounded-full text-sm font-semibold hover:bg-primary-hover active:scale-[0.98] transition-all flex items-center justify-center gap-2 shadow-md hover:shadow-lg group"
           >
-            <FileDown className="w-4 h-4 text-white" /> Scarica Capitolato PDF per Invio
+            <FileDown className="w-4 h-4 text-white" />
+            <span>Scarica preventivo in PDF</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
           </button>
           <button
             onClick={onBack}
-            className="flex-1 bg-surface-2 text-text border border-border py-4 rounded-xl font-mono text-xs font-bold uppercase tracking-wider hover:bg-surface-3 transition-all text-center"
+            className="flex-1 bg-white text-text border border-border py-3.5 px-6 rounded-full text-sm font-semibold hover:border-primary/40 hover:bg-surface-2 transition-all flex items-center justify-center gap-2 group"
           >
-            Torna al Catalogo Prodotti
+            <span>Torna al catalogo prodotti</span>
+            <ArrowRight className="w-4 h-4 text-text-3 transition-transform group-hover:translate-x-1 group-hover:text-primary" />
           </button>
         </div>
       </main>
@@ -1856,12 +1348,20 @@ const OrderReport = ({
 };
 
 // Main Ecommerce Storefront Page
-const EcommercePage = ({ onBack, cart, setCart }: { onBack: () => void; cart: CartItem[]; setCart: React.Dispatch<React.SetStateAction<CartItem[]>> }) => {
+const EcommercePage = ({
+  onBack,
+  cart,
+  setCart,
+  initialCategory,
+}: {
+  onBack: () => void;
+  cart: CartItem[];
+  setCart: React.Dispatch<React.SetStateAction<CartItem[]>>;
+  initialCategory?: string;
+}) => {
   const [prodotti, setProdotti] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
-  const [catalogo, setCatalogo] = useState('informatica');
-  const [showFan, setShowFan] = useState(true);
-  const [fanFadeOut, setFanFadeOut] = useState(false);
+  const [catalogo, setCatalogo] = useState(initialCategory || 'informatica');
   const [search, setSearch] = useState('');
   const [showCart, setShowCart] = useState(false);
   const [toast, setToast] = useState<string | null>(null);
@@ -1870,21 +1370,19 @@ const EcommercePage = ({ onBack, cart, setCart }: { onBack: () => void; cart: Ca
   const [showReport, setShowReport] = useState(false);
 
   const categoryConfig = [
-    { key: 'informatica', label: 'Informatica IT' },
-    { key: 'arredo', label: 'Arredi Ufficio' },
-    { key: 'alimentare', label: 'Horeca & Cibo' },
-    { key: 'ufficio', label: 'Forniture Office' },
-  ];
-
-  const categories: ProductCategory[] = [
-    { key: 'informatica', title: 'Informatica & Networking', description: 'Notebook, workstation desktop, server rack, networking e licenze software enterprise.', image: '/images/ecommerce/informatica/acer_desktop_gaming_predator_orion_3000_po3_intel®_core_i7_14700f_2_1_ghz_geforce_rtx™_4060_ram_16_gb_1024_gb_ssd.webp', cta: 'Esplora Hardware' },
-    { key: 'arredo', title: 'Arredamento Direzionale', description: 'Scrivanie operative regolabili, sedute ergonomiche EN-1335, space planning 3D.', image: '/images/arredo-ufficio.jpg', cta: 'Esplora Arredi' },
-    { key: 'alimentare', title: 'Impiantistica Horeca', description: 'Attrezzature da cucina, banchi refrigerati, forni industriali e automazione food.', image: '/images/3094495_banco-vendita-gastronomia-degustazione-arredo-negozio-industriale-vetrina-refrigerata.jpg', cta: 'Esplora Impianti' },
-    { key: 'ufficio', title: 'Forniture & Consumabili', description: 'Risme di carta, toners, cancelleria e materiale consumabile aziendale.', image: '/images/forniture-e-materiali.jpg', cta: 'Esplora Forniture' },
+    { key: 'informatica', label: 'Informatica e reti' },
+    { key: 'arredo', label: 'Arredo ufficio' },
+    { key: 'alimentare', label: 'Ristorazione e bar' },
+    { key: 'ufficio', label: 'Forniture e cancelleria' },
   ];
 
   useEffect(() => {
-    if (showFan) return;
+    if (initialCategory) {
+      setCatalogo(initialCategory);
+    }
+  }, [initialCategory]);
+
+  useEffect(() => {
     setLoading(true);
     let file = '';
     if (catalogo === 'alimentare') file = '/cataloghi/catalogo_ecommerce_b2b_alimentare.json';
@@ -1906,7 +1404,7 @@ const EcommercePage = ({ onBack, cart, setCart }: { onBack: () => void; cart: Ca
         setProdotti([]);
         setLoading(false);
       });
-  }, [catalogo, showFan]);
+  }, [catalogo]);
 
   useEffect(() => {
     setSearch('');
@@ -1923,38 +1421,13 @@ const EcommercePage = ({ onBack, cart, setCart }: { onBack: () => void; cart: Ca
     );
   }
 
-  if (showFan) {
-    return (
-      <div className={`transition-opacity duration-500 ${fanFadeOut ? 'opacity-0 pointer-events-none' : 'opacity-100'}`}>
-        <CategoryLanding
-          categories={categories}
-          onSelectCategory={key => setCatalogo(key)}
-          onEnterEcommerce={() => {
-            setFanFadeOut(true);
-            setTimeout(() => {
-              setShowFan(false);
-              setFanFadeOut(false);
-            }, 400);
-          }}
-          onBackToSite={() => {
-            setFanFadeOut(true);
-            setTimeout(() => {
-              onBack();
-              setFanFadeOut(false);
-            }, 400);
-          }}
-        />
-      </div>
-    );
-  }
-
   const aggiungiAlCarrello = (prodotto: Product) => {
     setCart(prev => {
       const existing = prev.find(ci => ci.product.id === prodotto.id);
       if (existing) return prev.map(ci => ci.product.id === prodotto.id ? { ...ci, qty: ci.qty + 1 } : ci);
       return [...prev, { product: prodotto, qty: 1 }];
     });
-    setToast(`${prodotto.nome.slice(0, 35)}${prodotto.nome.length > 35 ? '...' : ''} aggiunto`);
+    setToast(`${prodotto.nome.slice(0, 35)}${prodotto.nome.length > 35 ? '...' : ''} aggiunto al carrello`);
   };
 
   const rimuoviDalCarrello = (id: string) => {
@@ -1991,7 +1464,7 @@ const EcommercePage = ({ onBack, cart, setCart }: { onBack: () => void; cart: Ca
           {loading ? (
             <div className="flex flex-col items-center justify-center py-28">
               <div className="w-8 h-8 border-2 border-primary border-t-transparent rounded-full animate-spin mb-4" />
-              <p className="font-mono text-xs text-text-3 uppercase tracking-wider">CARICAMENTO CATALOGO IN CORSO...</p>
+              <p className="font-mono text-xs text-text-3 uppercase tracking-wider">Caricamento prodotti in corso...</p>
             </div>
           ) : filteredProdotti.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-28 text-center">
@@ -1999,17 +1472,17 @@ const EcommercePage = ({ onBack, cart, setCart }: { onBack: () => void; cart: Ca
                 <Search className="w-6 h-6 text-text-3" />
               </div>
               <p className="font-helvetica-light text-lg font-light text-text mb-1">
-                {search ? 'Nessun apparato trovato' : 'Catalogo in fase di aggiornamento'}
+                {search ? 'Nessun prodotto trovato' : 'Catalogo in fase di aggiornamento'}
               </p>
               <p className="font-helvetica-regular text-xs text-text-3">
-                {search ? "Prova a cercare con un altro termine o codice" : "Seleziona un'altra divisione dal menu in alto"}
+                {search ? "Prova a cercare con un altro termine o codice" : "Seleziona un'altra categoria dal menu in alto"}
               </p>
             </div>
           ) : (
             <>
               <div className="flex items-center justify-between mb-6 pb-3 border-b border-border">
                 <p className="font-mono text-xs text-text-3 uppercase">
-                  DIVISIONE {catalogo.toUpperCase()} • {filteredProdotti.length} PRODOTTI CERTIFICATI
+                  {categoryConfig.find(c => c.key === catalogo)?.label} • {filteredProdotti.length} PRODOTTI
                 </p>
               </div>
 
@@ -2069,15 +1542,15 @@ const EcommercePage = ({ onBack, cart, setCart }: { onBack: () => void; cart: Ca
 // Main App Container
 const App = () => {
   const [showEcommerce, setShowEcommerce] = useState(false);
+  const [selectedCategory, setSelectedCategory] = useState<string>('informatica');
   const [cart, setCart] = useState<CartItem[]>([]);
 
-  const handleAddToCartFromEstimator = (item: Product) => {
-    setCart(prev => {
-      const existing = prev.find(ci => ci.product.id === item.id);
-      if (existing) return prev.map(ci => ci.product.id === item.id ? { ...ci, qty: ci.qty + 1 } : ci);
-      return [...prev, { product: item, qty: 1 }];
-    });
+  const handleOpenEcommerceWithCategory = (catKey?: string) => {
+    if (catKey) {
+      setSelectedCategory(catKey);
+    }
     setShowEcommerce(true);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   if (showEcommerce) {
@@ -2087,6 +1560,7 @@ const App = () => {
           onBack={() => setShowEcommerce(false)}
           cart={cart}
           setCart={setCart}
+          initialCategory={selectedCategory}
         />
         <WhatsAppWidget />
       </>
@@ -2095,15 +1569,20 @@ const App = () => {
 
   return (
     <div className="min-h-screen bg-surface font-sans text-text selection:bg-primary/20">
-      <Header onEcommerce={() => setShowEcommerce(true)} />
-      <HeroSection onEcommerce={() => setShowEcommerce(true)} />
+      <TopLogo />
+      <HeroSection onEcommerce={() => handleOpenEcommerceWithCategory()} />
       <TrustedBy />
-      <FeaturesSection />
-      <CapitolatoEstimator onAddToCart={handleAddToCartFromEstimator} />
+
+      {/* Redesigned CategoryLanding replacing old Features section */}
+      <CategoryLanding
+        isSection
+        onSelectCategory={(key) => setSelectedCategory(key)}
+        onEnterEcommerce={() => handleOpenEcommerceWithCategory(selectedCategory)}
+      />
+
       <ComplianceSection />
       <ProcessTimeline />
       <StatsSection />
-      <CatalogoSettori onNavigateToEcommerce={() => setShowEcommerce(true)} />
       <FaqSection />
       <CTASection />
       <ContactInfoSection />

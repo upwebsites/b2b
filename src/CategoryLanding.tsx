@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { X, ArrowRight, Armchair as Chair, Package, UtensilsCrossed, Cpu, ShieldCheck } from "lucide-react";
+import { X, ArrowRight, Armchair as Chair, Package, UtensilsCrossed, Cpu, ShieldCheck, Sparkles } from "lucide-react";
 
 export type ProductCategory = {
   key: string;
@@ -7,45 +7,76 @@ export type ProductCategory = {
   description: string;
   image: string;
   cta: string;
+  tag?: string;
+  badge?: string;
 };
 
 interface Props {
-  categories: ProductCategory[];
+  categories?: ProductCategory[];
   onSelectCategory?: (key: string) => void;
   onEnterEcommerce?: () => void;
   onBackToSite?: () => void;
+  isSection?: boolean;
 }
 
-const CATEGORY_META: Record<string, { icon: React.ReactNode; specTag: string }> = {
-  informatica: {
-    icon: <Cpu className="w-8 h-8 text-text" />,
-    specTag: "Informatica & Reti",
+const DEFAULT_CATEGORIES: ProductCategory[] = [
+  {
+    key: "informatica",
+    title: "Informatica e Reti",
+    description: "Computer, workstation, server e apparati di rete per la massima efficienza aziendale.",
+    image: "/images/technical-8792188_640_2.jpg",
+    cta: "Esplora informatica",
+    tag: "Tecnologia & Sistemi",
+    badge: "Disponibilità immediata"
   },
-  arredo: {
-    icon: <Chair className="w-8 h-8 text-text" />,
-    specTag: "Arredo Direzionale",
+  {
+    key: "arredo",
+    title: "Arredo per Ufficio",
+    description: "Scrivanie operative, sedute ergonomiche certificate e pareti per reception e uffici.",
+    image: "/images/arredo-ufficio.jpg",
+    cta: "Esplora arredi",
+    tag: "Ergonomia & Design",
+    badge: "Norma UNI EN 1335"
   },
-  alimentare: {
-    icon: <UtensilsCrossed className="w-8 h-8 text-text" />,
-    specTag: "Impiantistica Horeca",
+  {
+    key: "alimentare",
+    title: "Ristorazione & Bar",
+    description: "Forni professionali, banchi refrigerati in acciaio inox e cucine industriali certificate.",
+    image: "/images/3094495_banco-vendita-gastronomia-degustazione-arredo-negozio-industriale-vetrina-refrigerata.jpg",
+    cta: "Esplora ristorazione",
+    tag: "Cucine & Laboratori",
+    badge: "Acciaio Inox HACCP"
   },
-  ufficio: {
-    icon: <Package className="w-8 h-8 text-text" />,
-    specTag: "Consumabili Ufficio",
+  {
+    key: "ufficio",
+    title: "Forniture & Cancelleria",
+    description: "Carta per fotocopie, toner originali, archivio e consumabili quotidiani di qualità.",
+    image: "/images/forniture-e-materiali.jpg",
+    cta: "Esplora forniture",
+    tag: "Consumabili & Carta",
+    badge: "Consegna rapida"
   },
+];
+
+const CATEGORY_ICONS: Record<string, React.ReactNode> = {
+  informatica: <Cpu className="w-5 h-5" />,
+  arredo: <Chair className="w-5 h-5" />,
+  alimentare: <UtensilsCrossed className="w-5 h-5" />,
+  ufficio: <Package className="w-5 h-5" />,
 };
 
 const CategoryLanding: React.FC<Props> = ({
-  categories,
+  categories = DEFAULT_CATEGORIES,
   onSelectCategory,
   onEnterEcommerce,
   onBackToSite,
+  isSection = false,
 }) => {
   const [mounted, setMounted] = useState(false);
   const [selected, setSelected] = useState<string | null>(null);
 
   useEffect(() => {
-    const t = setTimeout(() => setMounted(true), 50);
+    const t = setTimeout(() => setMounted(true), 40);
     return () => clearTimeout(t);
   }, []);
 
@@ -53,6 +84,133 @@ const CategoryLanding: React.FC<Props> = ({
     setSelected(key);
     onSelectCategory?.(key);
   };
+
+  const cats = categories.length > 0 ? categories : DEFAULT_CATEGORIES;
+
+  const content = (
+    <div className="max-w-7xl mx-auto px-5 md:px-8">
+      {/* Header text with refined typography */}
+      <div
+        className={`text-center mb-12 md:mb-16 transition-all duration-500 ${
+          mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-2"
+        }`}
+      >
+        <h2 className="font-helvetica-light text-3xl sm:text-4xl lg:text-5xl font-light text-text tracking-tighter mb-4 leading-tight">
+          Soluzioni complete per il tuo <span className="font-helvetica-regular text-text marker-underline">ambiente di lavoro</span>
+        </h2>
+        <p className="font-helvetica-regular text-text-2 max-w-2xl mx-auto text-base tracking-tight leading-relaxed">
+          Seleziona un settore per consultare il catalogo completo, richiedere quotazioni su misura o procedere direttamente con l'ordine.
+        </p>
+      </div>
+
+      {/* Grid of category cards */}
+      <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {cats.map((cat) => {
+          const isSelected = selected === cat.key;
+          const icon = CATEGORY_ICONS[cat.key] || <Package className="w-4 h-4" />;
+          return (
+            <div
+              key={cat.key}
+              onClick={() => {
+                handleSelect(cat.key);
+                if (onEnterEcommerce) {
+                  onEnterEcommerce();
+                }
+              }}
+              className={`group relative h-[470px] sm:h-[490px] rounded-[28px] overflow-hidden flex flex-col justify-between p-6 cursor-pointer shadow-lg hover:shadow-2xl transition-all duration-500 border ${
+                isSelected
+                  ? "border-primary ring-2 ring-primary/40 scale-[1.02]"
+                  : "border-black/5 hover:border-black/10 hover:scale-[1.01]"
+              }`}
+            >
+              {/* Full-bleed background image */}
+              <div className="absolute inset-0 bg-zinc-900 overflow-hidden">
+                {cat.image ? (
+                  <img
+                    src={cat.image}
+                    alt={cat.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    loading="lazy"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center bg-zinc-800 text-zinc-400">
+                    {icon}
+                  </div>
+                )}
+                {/* Smooth dark gradient overlay from bottom to top */}
+                <div className="absolute inset-0 bg-gradient-to-t from-zinc-950 via-zinc-950/80 via-50% to-black/20" />
+              </div>
+
+              {/* Bottom Card Content with Title, Description, Meta Pills, and White Pill Button */}
+              <div className="relative z-10 mt-auto pt-4">
+                <h3 className="font-helvetica-regular text-2xl font-bold text-white tracking-tight mb-1.5 leading-snug drop-shadow-sm group-hover:text-white transition-colors">
+                  {cat.title}
+                </h3>
+                
+                <p className="font-helvetica-regular text-xs sm:text-[13px] text-white/80 leading-relaxed line-clamp-2 mb-3.5 font-normal">
+                  {cat.description}
+                </p>
+
+                {/* Meta pill badges similar to reference */}
+                <div className="flex flex-wrap items-center gap-2 mb-4">
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[11px] font-medium text-white/90">
+                    <Sparkles className="w-3 h-3 text-accent" />
+                    <span>Garanzia B2B</span>
+                  </span>
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-white/15 backdrop-blur-md border border-white/20 text-[11px] font-medium text-white/90">
+                    <span>Catalogo 2026</span>
+                  </span>
+                </div>
+
+                {/* Prominent White Pill Button (Reserve now style) */}
+                <button
+                  type="button"
+                  className="w-full bg-white text-zinc-950 font-semibold py-3.5 px-4 rounded-full text-center text-sm shadow-md group-hover:bg-zinc-100 group-hover:shadow-lg transition-all duration-200 active:scale-[0.98] flex items-center justify-center gap-2"
+                >
+                  <span>{cat.cta}</span>
+                  <ArrowRight className="w-4 h-4 text-zinc-950 group-hover:translate-x-1 transition-transform" />
+                </button>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Reassurance Banner */}
+      <div className="mt-12 bg-white border border-border rounded-2xl p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-professional-sm">
+        <div className="flex items-center gap-4">
+          <div className="w-11 h-11 rounded-xl bg-primary/10 border border-primary/20 flex items-center justify-center text-primary shrink-0">
+            <ShieldCheck className="w-6 h-6" />
+          </div>
+          <div>
+            <h4 className="font-helvetica-regular text-base font-medium text-text tracking-tight">
+              Hai bisogno di una fornitura speciale o di volumi consistenti?
+            </h4>
+            <p className="font-helvetica-regular text-xs text-text-2 mt-0.5">
+              I nostri consulenti dedicati preparano offerte personalizzate e piani di fornitura mirati entro 24 ore.
+            </p>
+          </div>
+        </div>
+        {onEnterEcommerce && (
+          <button
+            onClick={onEnterEcommerce}
+            className="bg-primary text-white px-7 py-3.5 rounded-full text-sm font-semibold hover:bg-primary-hover active:scale-[0.98] shadow-md hover:shadow-lg transition-all shrink-0 flex items-center gap-2 group"
+          >
+            <span>Accedi al catalogo ordini</span>
+            <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
+          </button>
+        )}
+      </div>
+    </div>
+  );
+
+  if (isSection) {
+    return (
+      <section id="servizi" className="py-16 md:py-24 bg-white relative">
+        {content}
+      </section>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-surface text-text flex flex-col font-sans selection:bg-primary/20">
@@ -70,127 +228,20 @@ const CategoryLanding: React.FC<Props> = ({
           <div className="flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-primary animate-pulse" />
             <span className="font-helvetica-light text-xl font-light tracking-tighter text-text">
-              B2B <span className="font-helvetica-regular font-normal text-text-2">GROUP</span>
+              B2B <span className="font-helvetica-regular font-normal text-text-3">GROUP</span>
             </span>
           </div>
         </div>
-        <div className="text-xs text-text-3 font-mono tracking-widest uppercase">
-          CATALOGO B2B v4.2
+        <div className="text-xs text-text-3 font-mono tracking-wider uppercase">
+          CATALOGO FORNITURE AZIENDALI
         </div>
       </header>
 
-      <main className="flex-1 overflow-y-auto">
-        <div className="max-w-7xl mx-auto px-5 md:px-8 py-14 md:py-20">
-          <div
-            className={`text-center mb-16 transition-all duration-500 ${mounted ? "opacity-100 translate-y-0" : "opacity-0 translate-y-3"}`}>
-            <h1 className="font-helvetica-light text-4xl md:text-5xl lg:text-6xl font-light text-text tracking-tighter mb-4 leading-tight">
-              Catalogo Soluzioni <span className="font-helvetica-regular text-text underline decoration-primary/40 underline-offset-8">Aziendali</span>
-            </h1>
-            <p className="font-helvetica-regular text-text-2 max-w-2xl mx-auto text-base tracking-tight leading-relaxed">
-              Seleziona una divisione operativa per accedere al listino completo, richiedere quotazioni riservate o generare il capitolato d'acquisto.
-            </p>
-          </div>
-
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {categories.map((cat) => {
-              const isSelected = selected === cat.key;
-              const meta = CATEGORY_META[cat.key] || CATEGORY_META["informatica"];
-              return (
-                <button
-                  key={cat.key}
-                  onClick={() => handleSelect(cat.key)}
-                  className={`group relative flex flex-col h-full text-left rounded-2xl overflow-hidden border transition-all duration-300 ${
-                    isSelected ? "border-primary bg-surface-2 shadow-professional-lg" : "border-border bg-surface-2/60 hover:border-border-hover hover:bg-surface-2 shadow-professional"
-                  }`}
-                >
-                  {/* Visual block with photo and vector fallback */}
-                  <div className="relative aspect-[16/10] bg-gradient-to-br from-surface-3 via-surface-2 to-surface flex flex-col justify-between p-5 border-b border-border overflow-hidden">
-                    {cat.image ? (
-                      <>
-                        <img
-                          src={cat.image}
-                          alt={cat.title}
-                          className="absolute inset-0 w-full h-full object-cover opacity-80 group-hover:opacity-100 group-hover:scale-105 transition-all duration-500"
-                        />
-                        <div className="absolute inset-0 bg-gradient-to-t from-surface-2/95 via-surface-2/50 to-transparent pointer-events-none" />
-                      </>
-                    ) : null}
-                    <div className="absolute -right-6 -bottom-6 w-32 h-32 rounded-full border border-border/40 pointer-events-none group-hover:border-primary/30 transition-colors" />
-                    <div className="absolute top-0 right-0 p-3 opacity-20 group-hover:opacity-30 transition-opacity z-10">
-                      {meta.icon}
-                    </div>
-                    <div className="flex justify-end items-start z-10">
-                      <span className="w-2 h-2 rounded-full bg-primary/60 group-hover:bg-primary transition-colors" />
-                    </div>
-
-                    <div className="z-10 flex items-center gap-3">
-                      <div className="w-12 h-12 rounded-xl bg-surface/95 backdrop-blur-md border border-border flex items-center justify-center shrink-0 shadow-sm group-hover:border-primary/50 transition-colors">
-                        {meta.icon}
-                      </div>
-                      <div>
-                        <span className="text-xs font-helvetica-regular text-primary uppercase block font-semibold">
-                          {meta.specTag}
-                        </span>
-                        <span className="text-xs font-helvetica-regular text-text-3">Prodotti Certificati</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="p-6 flex-1 flex flex-col justify-between">
-                    <div>
-                      <h3 className="font-helvetica-light text-2xl font-light text-text tracking-tighter mb-2 group-hover:text-primary transition-colors">
-                        {cat.title}
-                      </h3>
-                      <p className="font-helvetica-regular text-sm text-text-2 leading-relaxed mb-6 line-clamp-3 tracking-tight">
-                        {cat.description}
-                      </p>
-                    </div>
-
-                    {onEnterEcommerce && (
-                      <div className="pt-4 border-t border-border/60 flex items-center justify-between">
-                        <span
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleSelect(cat.key);
-                            onEnterEcommerce();
-                          }}
-                          className="inline-flex items-center gap-2 text-text font-helvetica-regular font-normal text-xs uppercase tracking-wider cursor-pointer group-hover:text-primary transition-all"
-                        >
-                          {cat.cta}
-                          <ArrowRight className="w-3.5 h-3.5 text-primary transition-transform group-hover:translate-x-1" />
-                        </span>
-                      </div>
-                    )}
-                  </div>
-                </button>
-              );
-            })}
-          </div>
-
-          <div className="mt-16 bg-surface-2 border border-border rounded-2xl p-8 flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="flex items-center gap-4">
-              <div className="w-10 h-10 rounded-xl bg-surface border border-border flex items-center justify-center text-primary shrink-0">
-                <ShieldCheck className="w-5 h-5" />
-              </div>
-              <div>
-                <h4 className="font-helvetica-light text-lg font-light text-text tracking-tight">Serve una fornitura su capitolato speciale?</h4>
-                <p className="font-helvetica-regular text-xs text-text-2 tracking-tight">I nostri Service Manager elaborano offerte personalizzate su gara o accordi quadro aziendali.</p>
-              </div>
-            </div>
-            {onEnterEcommerce && (
-              <button
-                onClick={onEnterEcommerce}
-                className="bg-primary text-white px-6 py-3 rounded-xl text-xs font-mono font-bold tracking-wider uppercase hover:bg-primary-hover shadow-md transition-all shrink-0"
-              >
-                Accedi al Portale Ordini
-              </button>
-            )}
-          </div>
-        </div>
+      <main className="flex-1 overflow-y-auto py-12 md:py-16">
+        {content}
       </main>
     </div>
   );
 };
 
 export default CategoryLanding;
-
